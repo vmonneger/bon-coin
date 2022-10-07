@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div>
+    <ul>
+        {% for answer in answers %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
