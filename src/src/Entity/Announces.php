@@ -17,8 +17,8 @@ class Announces
     #[ORM\Column]
     private ?int $user_id = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $images = [];
+    #[ORM\Column(length: 255)]
+    private ?string $images = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
@@ -52,12 +52,12 @@ class Announces
         return $this;
     }
 
-    public function getImages(): array
+    public function getImages(): ?string
     {
         return $this->images;
     }
 
-    public function setImages(array $images): self
+    public function setImages(string $images): self
     {
         $this->images = $images;
 
@@ -95,7 +95,7 @@ class Announces
 
     public function setCreatedAt(): self
     {
-        $this->created_at = (new \DateTimeImmutable('now'));;
+        $this->created_at = new \DateTime('now');;
 
         return $this;
     }

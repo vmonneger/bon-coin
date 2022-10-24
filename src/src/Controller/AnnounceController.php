@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Announces;
 use App\Form\AnnounceFormType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +24,23 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/addannounce', name: 'app_addannounce')]
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     { 
         $form = $this->createForm(AnnounceFormType::class);
+        
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
+            $myAnnounce = $form->getData();
+            $myAnnounce->setCreatedAt();
+            $myAnnounce->setUserId(1);
+
+            $entityManager->persist($myAnnounce);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Tu as ajouté une annonce !');
+
+            dd($myAnnounce);
         }
 
         return $this->render('announce/new.html.twig', [
