@@ -93,9 +93,9 @@ class Announces
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(): self
     {
-        $this->created_at = $created_at;
+        $this->created_at = (new \DateTimeImmutable('now'));;
 
         return $this;
     }
