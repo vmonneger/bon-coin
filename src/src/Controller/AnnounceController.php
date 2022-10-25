@@ -47,4 +47,15 @@ class AnnounceController extends AbstractController
             'announceForm' => $form->createView()
         ]);
     }
+
+    #[Route('/allannounce', name: 'app_announce')]
+    public function allAnnounces(EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Announces::class);
+        $announces = $repository->findBy([], ['created_at' =>'DESC']);
+        return $this->render('announce/all.html.twig', [
+            'announces' => $announces,
+        ]);
+    }
+
 }

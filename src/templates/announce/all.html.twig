@@ -1,0 +1,9 @@
+{% block body %}
+<div>
+    <ul>
+        {% for announce in announces %}
+            <li>{{ announce.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
