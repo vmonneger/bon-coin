@@ -40,7 +40,7 @@ class AnnounceController extends AbstractController
 
             $this->addFlash('success', 'Tu as ajouté une annonce !');
 
-            dd($myAnnounce);
+            return $this->redirectToRoute('app_announce');
         }
 
         return $this->render('announce/new.html.twig', [
@@ -52,10 +52,20 @@ class AnnounceController extends AbstractController
     public function allAnnounces(EntityManagerInterface $entityManager): Response
     {
         $repository = $entityManager->getRepository(Announces::class);
-        $announces = $repository->findBy([], ['created_at' =>'DESC']);
+        $announces = $repository->findBy([], ['created_at' =>'ASC']);
         return $this->render('announce/all.html.twig', [
             'announces' => $announces,
         ]);
     }
+
+    #[Route('/removeannounce{id}', name: 'app_removeannounce')]
+    public function remove(int $id, EntityManagerInterface $entityManager){
+        $announce = $entityManager->getReference(Announces::class, $id);
+        $entityManager->remove($announce);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_announce');
+    }
+
 
 }

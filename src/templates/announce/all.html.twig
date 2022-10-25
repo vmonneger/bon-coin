@@ -1,8 +1,12 @@
 {% block body %}
 <div>
+Toutes les annonces
+<br/>
+<a href="{{ path('app_addannounce') }}">Ajouter</a>
     <ul>
         {% for announce in announces %}
-            <li>{{ announce.title }}</li>
+            Annonce numéro  {{ announce.id }}
+            <li>{{ announce.title }}  <br/><a href="{{ path('app_removeannounce',{'id': announce.id}) }}">Supprimer</a></li>
         {% endfor %}
     </ul>
 </div>
