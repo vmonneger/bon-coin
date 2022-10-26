@@ -88,12 +88,12 @@ class Announces
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreated_At(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(): self
+    public function setCreated_At(): self
     {
         $this->created_at = new \DateTime('now');;
 
