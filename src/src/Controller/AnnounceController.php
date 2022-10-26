@@ -71,18 +71,18 @@ class AnnounceController extends AbstractController
 
     // #[Route('/userannounces', name: 'app_userannounces')]
     
-    // #[Route('/announce/{id}', name: 'app_announcebyid')]
-    // public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
-    // {
-    //     // $loggedUser = $this->getUser()->getId();
-    //     // $announce = $entityManager->getReference(Announces::class, $id);
-    //     $repository = $entityManager->getRepository(Announces::class);
-    //     $announce = $repository->find($id);
-    //     return $this->render('announce/single.html.twig', [
-    //         'announce' => $announce,
-    //         // 'userId' => $loggedUser
-    //     ]);
-    // }
+    #[Route('/announce/{id}', name: 'app_announcebyid')]
+    public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // $loggedUser = $this->getUser()->getId();
+        // $announce = $entityManager->getReference(Announces::class, $id);
+        $repository = $entityManager->getRepository(Announces::class);
+        $announce = $repository->find($id);
+        return $this->render('announce/single.html.twig', [
+            'announce' => $announce,
+            // 'userId' => $loggedUser
+        ]);
+    }
 
     #[Route('/getannounce{id}', name: 'app_getannounce')]
     public function get(int $id, EntityManagerInterface $entityManager){
