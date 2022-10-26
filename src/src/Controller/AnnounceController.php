@@ -71,18 +71,39 @@ class AnnounceController extends AbstractController
 
     // #[Route('/userannounces', name: 'app_userannounces')]
     
-    #[Route('/announce/{id}', name: 'app_announcebyid')]
-    public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
-    {
-        // $loggedUser = $this->getUser()->getId();
-        // $announce = $entityManager->getReference(Announces::class, $id);
-        $repository = $entityManager->getRepository(Announces::class);
-        $announce = $repository->find($id);
-        return $this->render('announce/single.html.twig', [
+    // #[Route('/announce/{id}', name: 'app_announcebyid')]
+    // public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
+    // {
+    //     // $loggedUser = $this->getUser()->getId();
+    //     // $announce = $entityManager->getReference(Announces::class, $id);
+    //     $repository = $entityManager->getRepository(Announces::class);
+    //     $announce = $repository->find($id);
+    //     return $this->render('announce/single.html.twig', [
+    //         'announce' => $announce,
+    //         // 'userId' => $loggedUser
+    //     ]);
+    // }
+
+    #[Route('/getannounce{id}', name: 'app_getannounce')]
+    public function get(int $id, EntityManagerInterface $entityManager){
+        $announce = $entityManager->getReference(Announces::class, $id);
+
+        return $this->render('announce/get.html.twig', [
             'announce' => $announce,
-            // 'userId' => $loggedUser
         ]);
     }
 
+    #[Route('/updateannounce{id}', name: 'app_updateannounce')]
+    public function update(int $id, EntityManagerInterface $entityManager, Request $request){
+        $announce = $entityManager->getReference(Announces::class, $id);
+        $announce->setImages($request->request->get('images'));
+        $announce->setTitle($request->request->get('title'));
+        $announce->setDescription($request->request->get('description'));
+        $announce->setPrice($request->request->get('price'));
+        $announce->setTags($request->request->all('tags'));
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_announce');
+    }
 
 }
