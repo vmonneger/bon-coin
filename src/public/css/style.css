@@ -1,0 +1,170 @@
+.topMenu {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15%;
+  position: fixed;
+  z-index: 9000;
+
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -1px 4px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  /* max-width: 1066px; */
+  align-items: center;
+  top: 0px;
+}
+
+.topMenu .topMenu_leftpart #logo {
+  width: 14rem;
+  height: auto;
+}
+
+.topMenu .topMenu_leftpart {
+  display: flex;
+  gap: 15px;
+}
+
+.topMenu .topMenu_rightpart {
+  display: flex;
+  gap: 25px;
+}
+
+.topMenu .topMenu_rightpart a {
+  color: #ff6e14;
+  position: relative;
+  font-weight: 500;
+  padding: 6px 0;
+  text-decoration: none;
+}
+
+.topMenu .topMenu_rightpart a:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: #ff6e14;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+.topMenu .topMenu_rightpart a:hover:before {
+  width: 100%;
+}
+.topMenu .topMenu_rightpart a:before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.add {
+  align-self: center;
+  background-color: #ff6e14;
+  border-radius: 4px;
+  color: #fff;
+  /* height: 4rem; */
+  margin-right: 1rem;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  outline: 3px solid #ff6e14;
+
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.add:hover {
+  color: #ff6e14;
+  background-color: #fff;
+  transition: background-color 0.3s;
+  /* outline: 3px solid #ff6e14; */
+}
+
+.add_link {
+  color: #ff6e14;
+  font-weight: bold;
+}
+
+.alert_noresult {
+  width: 100%;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  margin-top: 5%;
+}
+
+#announce_form div {
+  display: flex;
+  gap: 15px;
+  margin: 5px 0;
+}
+
+.submit_announce {
+  color: #ff6e14;
+  background-color: #fff;
+  padding: 10px;
+  outline: 3px solid #ff6e14;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+}
+
+.submit_announce:hover {
+  color: #fff;
+  background-color: #ff6e14;
+  transition: background-color 0.3s;
+}
+
+.announce {
+  list-style: none;
+}
+.announce .card {
+  box-shadow: 0 -1px 4px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  border: none;
+}
+
+.card-title {
+  width: 20ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-body {
+  padding: 0 15px;
+}
+
+.figure {
+  margin-bottom: 0px;
+}
+
+.card-footer {
+    text-align: end;
+}
+
+.btn_tools {
+    color: #ff6e14; 
+    font-weight: bold;
+    padding: 5px;
+    width: 100%;
+    text-decoration: none;
+}
+
+.btn_tools:hover {
+    padding: 5px;
+    border-radius: 50%;
+    background-color: #ff6e14;
+    color: #fff;
+}
