@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\Vote;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +14,11 @@ class VoteController extends AbstractController
     #[Route('/vote/{sellerId}', name: 'app_vote', methods: "POST")]
     public function postVote($sellerId, EntityManagerInterface $entityManager, Request $request): Response
     {   
+        if ($sellerId === strval($this->getUser()->getId())) {
+            return $this->json([
+                'error' => 'Tu ne peux pas voter pour toi'
+            ]);
+        }
 
         $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $sellerId));
 
@@ -77,26 +81,6 @@ class VoteController extends AbstractController
             $entityManager->flush();
         }
 
-        // $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'User tried to access a page without having ROLE_ADMIN');
-        return $this->json([
-            'downvote' => $downvoteArray,
-            'upvote' => $upvoteArray,
-        ]);
-    //     return $this->render('vote/index.html.twig', [
-    //         'controller_name' => 'VoteController',
-    //     ]);
-    }
-
-    #[Route('/vote', name: 'app_votez')]
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $voteCount = 10;
-        $repository = $entityManager->getRepository(User::class);
-
-        $user = $repository->findAll();
-
-            return $this->render('vote/index.html.twig', [
-            'controller_name' => 'VoteController',
-        ]);
+        return $this->redirectToRoute('app_profile_id', ['userID' => $sellerId]);
     }
 }

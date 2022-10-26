@@ -9,10 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Le current user sur l'index</h1>
-    <p>Le nom: {{ name }}</p>
-    <p>Le mail: {{ email }}</p>
+    <h1>Le nom: {{ name }}</h1>
+    <h2>Le mail: {{ email }}</h2>
     <p>Upvote: {{ upvote }}</p>
     <p>Downvote: {{ downvote }}</p>
+
+    <form action="{{ path('app_vote', { sellerId: '2' }) }}" method="post">
+        <button {{ upvoteDisabled }} class="" name="vote" value="up">vote up</button>
+        <button {{ downvoteDisabled }} class="" name="vote" value="down">vote down</button>
+    </form>
 </div>
 {% endblock %}
