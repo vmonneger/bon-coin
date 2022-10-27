@@ -17,12 +17,91 @@
 					</div>
 					<div class="card-body">
 						<h5 class="card-title">{{announce.title}}</h5>
-						<hr/>
+						<hr style="border: 1px solid #ff6e14 ;">
+
 						<h6>Description</h6>
 						<p class="card-text">
 							{{announce.description}}
 						</p>
 					</div>
+					{# <hr style="border: 1px solid #ff6e14 ;"> #}
+					<br><br>
+	<h6>F.A.Q</h6>
+	{% for question in questions %}
+	{# //QUESTION #}
+	<div class="question_announce">
+		<div class="row">
+			<div class="col-6">
+				<h6>{{ question.user.name }}</h6>
+			</div>
+			<div class="col-6 publish">
+				<small><i>{{ question.askedAt|date('d F Y') }}</i></small>
+			</div>
+		</div>
+		<div class="row">
+			<p>{{ question.question }}</p>
+		</div>
+		<div class="row justify-content-end">
+			{% if is_granted("EDIT", announce) and not question.response %}
+			<button class="respond_announce" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    							{{ source('@public_path'~asset('svg/arrowreturnright.svg')) }}Répondre
+  			</button>
+			{% endif %}
+
+		</div>
+	</div>
+	{# // END QUESTION  #}
+	{# //RESPONSE #}
+		{% if question.response %}
+		<div class="row response">
+			<div class="col-1 svgreturn">
+				{{ source('@public_path'~asset('svg/arrowreturnright.svg')) }}
+			</div>
+			<div class="col-11">
+				<div class="response_announce">
+					<div class="row">
+						<div class="col-6">
+							<h6>{{ user.name }}</h6>
+						</div>
+					<div class="col-6 publish">
+						{# <small><i>{{ question.response.createdAt|date('d F Y') }}</i></small> #}
+					</div>
+					</div>
+					<div class="row">
+							<p>{{ question.response.message }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	{# // END RESPONSE #}
+
+		{% if is_granted("EDIT", announce) and not question.response %}
+			<form action="{{ path('app_response', { announceId: announce.id, questionId: question.id }) }}" method="post">
+				<div class="announce-form-group">		 
+					<div class="collapse" id="collapseExample">
+						<label for="question">Répondre à {{ question.user.name }} :</label>
+						<textarea type="textarea" id="response" name="response"></textarea>
+
+						<input type="submit" value="Répondre" class="submit_announce">
+					</div>
+				</div>
+			</form>
+		{% endif %}
+	{% endfor %}
+
+	{% if is_granted("EDIT", announce) is same as(false) %}
+		<form action="{{ path('app_question', { announceId: announce.id }) }}" method="post">
+			<div class="announce-form-group">
+				<h6 for="question">Une question sur cet article ?</h6>
+
+				<textarea type="textarea" id="question" name="question"></textarea>
+
+				<input type="submit" value="Poster" class="submit_announce">
+			</div>
+		</form>
+	{% endif %}
+
 				</div>
 
 
@@ -97,35 +176,6 @@
 			</div>
 		</div>
 	{% endif %}
-	<hr style="border: 1px solid #ff6e14 ;">
-	{% for question in questions %}
-		<p>{{ question.user.name }}</p>
-		<p>{{ question.question }}</p>
-		<p>{{ question.askedAt|date('d F Y') }}</p>
-		{% if question.response %}
-			<p>C'est la réponse: {{ question.response.message }}</p>
-		{% endif %}
-		{% if is_granted("EDIT", announce) and not question.response %}
-		<form action="{{ path('app_response', { announceId: announce.id, questionId: question.id }) }}" method="post">
 
-			<label for="question">Vous voulez répondre ?</label>
-			<textarea type="textarea" id="response" name="response"></textarea>
-
-			<input type="submit" value="Répondre">
-		</form>
-	{% endif %}
-	{% endfor %}
-
-	{% if is_granted("EDIT", announce) is same as(false) %}
-		<form action="{{ path('app_question', { announceId: announce.id }) }}" method="post">
-			<div class="announce-form-group">
-				<h6 for="question">Une question sur cet article ?</h6>
-				<textarea class="mb-3" type="textarea" id="question" name="question"></textarea>
-
-			<label for="question">Vous voulez poser une question ?</label>
-			<textarea type="textarea" id="question" name="question"></textarea>
-
-			<input type="submit" value="Poster">
-		</form>
-	{% endif %}
+	
 {% endblock %}
