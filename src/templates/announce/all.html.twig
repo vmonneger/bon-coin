@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'menu.html.twig' %}
 
-{% block body %}
+{% block container %}
 	{% if (announces|length) >= 1 %}
 		<div>
 			Toutes les annonces
@@ -14,13 +14,12 @@
 							{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
 							<figure class="figure">
 								<img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure>
-
+							<div class="price_container">
+								<div class="price">{{announce.price}}<sup>€00</sup>
+								</div>
+							</div>
 							<div class="card-body">
 								<h5 class="card-title">{{announce.title}}</h5>
-
-								<p class="card-text">
-									<small class="text-muted">Last updated 3 mins ago</small>
-								</p>
 							</div>
 							<div class="card-footer">
 								<a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
