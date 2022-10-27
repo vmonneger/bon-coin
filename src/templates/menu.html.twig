@@ -15,15 +15,33 @@
 		<div
 			class="topMenu_rightpart">
 			{# {% if user.isLoggedIn %}
-			            Hello {{ user.name }}!
-			        {% endif %} #}
-			<a href="/login" type="submit" class="">Se connecter</a>
-			<a href="/register" type="submit" class="">S'inscrire</a>
+															            Hello {{ user.name }}!
+															        {% endif %} #}
+			{% if is_granted("ROLE_USER") %}
+				<a class="profile" href="/profile">
+					<figure class="profile_pastille" style="background-image: url('https://source.unsplash.com/7Sz71zuuW4k');">
+						<div class="online"></div>
+					</figure>
+					<small>
+						{{ app.user.name }}</small>
+				</a>
+
+				<a  class="btn_logout" href="/logout">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewbox="0 0 16 16">
+						<path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+						<path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+					</svg>
+					<small>Logout</small>
+				</a>
+
+			{% else %}
+				<a href="/login" type="submit" class="">Se connecter</a>
+				<a href="/register" type="submit" class="">S'inscrire</a>
+			{% endif %}
 		</div>
 	</div>
 	<div class="container">
-		{% block container %}
-        {% endblock %}
+		{% block container %}{% endblock %}
 	</div>
 
 {% endblock %}

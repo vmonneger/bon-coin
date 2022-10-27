@@ -40,12 +40,12 @@ class Announces
         return $this->id;
     }
 
-    public function getUserId(): ?int
+    public function getUser_Id(): ?int
     {
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUser_Id(int $user_id): self
     {
         $this->user_id = $user_id;
 

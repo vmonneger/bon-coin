@@ -78,8 +78,8 @@ class AnnounceController extends AbstractController
         // $announce = $entityManager->getReference(Announces::class, $id);
         $repository = $entityManager->getRepository(Announces::class);
         $announce = $repository->find($id);
+        // dd($announce->getUser_Id()->getName()); 
 
-        // dd($announce); 
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
             // 'userId' => $loggedUser
