@@ -52,6 +52,6 @@ class AnnounceVoter extends Voter
     }
 
     private function canEdit(User $userLogged, Announces $announce) {
-        return $userLogged->getId() === $announce->getUserId();
+        return $userLogged->getId() === $announce->getUser_Id();
     }
 }

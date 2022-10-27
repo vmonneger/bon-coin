@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AnnounceController extends AbstractController
 {
-    
+
     #[Route('/announce', name: 'app_announce')]
     public function index(): Response
     {
@@ -26,15 +26,16 @@ class AnnounceController extends AbstractController
 
     #[Route('/addannounce', name: 'app_addannounce')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    { 
+    {
         $form = $this->createForm(AnnounceFormType::class);
-        
+
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
             $myAnnounce = $form->getData();
-            $myAnnounce->setCreatedAt();
+            $myAnnounce->setCreated_At();
             $myAnnounce->setUserId($idUser);
 
             $entityManager->persist($myAnnounce);
@@ -53,7 +54,7 @@ class AnnounceController extends AbstractController
     {
         // $loggedUser = $this->getUser()->getId();
         $repository = $entityManager->getRepository(Announces::class);
-        $announces = $repository->findBy([], ['created_at' =>'ASC']);
+        $announces = $repository->findBy([], ['created_at' => 'ASC']);
         return $this->render('announce/all.html.twig', [
             'announces' => $announces,
             // 'userId' => $loggedUser
@@ -100,5 +101,4 @@ class AnnounceController extends AbstractController
 
         return $this->redirectToRoute('app_announce');
     }
-
 }

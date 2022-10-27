@@ -9,6 +9,7 @@
 			<ul class="row row-cols-1 row-cols-md-5 g-4 mt-3">
 				{% for announce in announces %}
 					<li class="announce col">
+					<a href="/announce/{{ announce.id }}" class="card_link">
 						<div
 							class="card mb-3">
 							{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
@@ -19,8 +20,9 @@
 								</div>
 							</div>
 							<div class="card-body">
-								<h5 class="card-title">{{announce.title}}</h5>
+								<h6 class="card-title">{{announce.title}}</h6>
 							</div>
+							{% if is_granted("EDIT", announce) %}
 							<div class="card-footer">
 								<a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
@@ -35,7 +37,9 @@
 									</svg>
 								</a>
 							</div>
+							{% endif %}
 						</div>
+						</a>
 					</li>
 
 				{% endfor %}
