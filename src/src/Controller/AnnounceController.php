@@ -36,7 +36,7 @@ class AnnounceController extends AbstractController
             $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
             $myAnnounce = $form->getData();
             $myAnnounce->setCreated_At();
-            $myAnnounce->setUserId($idUser);
+            $myAnnounce->setUserId($this->getUser());
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
@@ -70,19 +70,34 @@ class AnnounceController extends AbstractController
         return $this->redirectToRoute('app_announce');
     }
 
-    #[Route('/getannounce/{id}', name: 'app_getannounce')]
-    public function get(int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo){
+    #[Route('/announce/{id}', name: 'app_announcebyid')]
+    public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // $loggedUser = $this->getUser()->getId();
+        // $announce = $entityManager->getReference(Announces::class, $id);
+        $repository = $entityManager->getRepository(Announces::class);
+        $announce = $repository->find($id);
+        // dd($announce->getUser_Id()->getName()); 
 
-        $announce = $entityManager->getReference(Announces::class, $id);
-        $tags = [];
-        foreach ($announce->getTags() as $tag) {
-            $tags[] = $tag->getId();
-        }
-
-        return $this->render('announce/get.html.twig', [
-            'announce' => $announce, 'tags' => $tags
+        return $this->render('announce/single.html.twig', [
+            'announce' => $announce,
+            'sellerId' => $announce->getUserId()->getId()
         ]);
     }
+
+    // #[Route('/getannounce/{id}', name: 'app_getannounce')]
+    // public function get(int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo){
+
+    //     $announce = $entityManager->getReference(Announces::class, $id);
+    //     $tags = [];
+    //     foreach ($announce->getTags() as $tag) {
+    //         $tags[] = $tag->getId();
+    //     }
+
+    //     return $this->render('announce/get.html.twig', [
+    //         'announce' => $announce, 'tags' => $tags
+    //     ]);
+    // }
 
     #[Route('/updateannounce/{id}', name: 'app_updateannounce')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request){

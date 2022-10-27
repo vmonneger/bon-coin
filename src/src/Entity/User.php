@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -38,6 +40,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Test::class)]
+    private Collection $tests;
+
+    #[ORM\OneToMany(mappedBy: 'user_id', targetEntity: Announces::class)]
+    private Collection $announces;
+
+    public function __construct()
+    {
+        $this->tests = new ArrayCollection();
+        $this->announces = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -141,6 +155,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setName(?string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Test>
+     */
+    public function getTests(): Collection
+    {
+        return $this->tests;
+    }
+
+    public function addTest(Test $test): self
+    {
+        if (!$this->tests->contains($test)) {
+            $this->tests->add($test);
+            $test->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTest(Test $test): self
+    {
+        if ($this->tests->removeElement($test)) {
+            // set the owning side to null (unless already changed)
+            if ($test->getUser() === $this) {
+                $test->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Announces>
+     */
+    public function getAnnounces(): Collection
+    {
+        return $this->announces;
+    }
+
+    public function addAnnounce(Announces $announce): self
+    {
+        if (!$this->announces->contains($announce)) {
+            $this->announces->add($announce);
+            $announce->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnounce(Announces $announce): self
+    {
+        if ($this->announces->removeElement($announce)) {
+            // set the owning side to null (unless already changed)
+            if ($announce->getUserId() === $this) {
+                $announce->setUserId(null);
+            }
+        }
 
         return $this;
     }
