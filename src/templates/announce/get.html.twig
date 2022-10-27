@@ -2,8 +2,8 @@
 <div>
 Ton annonce
 
-{% for tag in announce.tags %}
-    {{ tag }}
+{% for tag in tags %}
+            <li>{{ tag }}</li>
 {% endfor %}
 
 <form action="{{ path('app_updateannounce',{'id': announce.id}) }}" method="post">
@@ -22,9 +22,9 @@ Ton annonce
   <label for="tags">Choisissez une ou plusieurs catégories :</label>
   <br/>
     <select multiple name="tags[]" id="tags" >     
-        <option value="1" {% if 1 in announce.tags %} selected{% endif %}>Automobile</option>
-        <option value="2" {% if 2 in announce.tags %} selected{% endif %}>Informatique</option>
-        <option value="3" {% if 3 in announce.tags %} selected{% endif %}>Jardin</option>
+        <option value="1" {% if 1 in tags %} selected{% endif %}>Automobile</option>
+        <option value="2" {% if 2 in tags %} selected{% endif %}>Informatique</option>
+        <option value="3" {% if 3 in tags %} selected{% endif %}>Jardin</option>
     </select>
     <br/>
   <input type="submit" value="Modifier">

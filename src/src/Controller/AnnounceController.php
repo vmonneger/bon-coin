@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Announces;
+use App\Repository\AnnouncesRepository;
 use App\Form\AnnounceFormType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,14 +32,13 @@ class AnnounceController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
             $myAnnounce = $form->getData();
             $myAnnounce->setCreatedAt();
-            $myAnnounce->setUserId(1);
+            $myAnnounce->setUserId($idUser);
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
-
-            $this->addFlash('success', 'Tu as ajouté une annonce !');
 
             return $this->redirectToRoute('app_announce');
         }
@@ -58,7 +58,7 @@ class AnnounceController extends AbstractController
         ]);
     }
 
-    #[Route('/removeannounce{id}', name: 'app_removeannounce')]
+    #[Route('/removeannounce/{id}', name: 'app_removeannounce')]
     public function remove(int $id, EntityManagerInterface $entityManager){
         $announce = $entityManager->getReference(Announces::class, $id);
         $entityManager->remove($announce);
@@ -67,23 +67,33 @@ class AnnounceController extends AbstractController
         return $this->redirectToRoute('app_announce');
     }
 
-    #[Route('/getannounce{id}', name: 'app_getannounce')]
-    public function get(int $id, EntityManagerInterface $entityManager){
+    #[Route('/getannounce/{id}', name: 'app_getannounce')]
+    public function get(int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo){
+
         $announce = $entityManager->getReference(Announces::class, $id);
+        $tags = [];
+        foreach ($announce->getTags() as $tag) {
+            $tags[] = $tag->getId();
+        }
 
         return $this->render('announce/get.html.twig', [
-            'announce' => $announce,
+            'announce' => $announce, 'tags' => $tags
         ]);
     }
 
-    #[Route('/updateannounce{id}', name: 'app_updateannounce')]
+    #[Route('/updateannounce/{id}', name: 'app_updateannounce')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request){
         $announce = $entityManager->getReference(Announces::class, $id);
         $announce->setImages($request->request->get('images'));
         $announce->setTitle($request->request->get('title'));
         $announce->setDescription($request->request->get('description'));
         $announce->setPrice($request->request->get('price'));
-        $announce->setTags($request->request->all('tags'));
+
+        $tags = $request->request->all('tags');
+
+        // foreach ($tags as $tag) {
+        //     $announce->addTag($tag);
+        // }
         $entityManager->flush();
 
         return $this->redirectToRoute('app_announce');

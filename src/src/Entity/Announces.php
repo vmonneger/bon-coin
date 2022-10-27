@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnnouncesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,8 +34,13 @@ class Announces
     #[ORM\Column]
     private ?int $price = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $tags = [];
+    #[ORM\ManyToMany(targetEntity: Tags::class, inversedBy: 'announces')]
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,14 +119,26 @@ class Announces
         return $this;
     }
 
-    public function getTags(): array
+    /**
+     * @return Collection<int, Tags>
+     */
+    public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function setTags(?array $tags): self
+    public function addTag(Tags $tag): self
     {
-        $this->tags = $tags;
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tags $tag): self
+    {
+        $this->tags->removeElement($tag);
 
         return $this;
     }
