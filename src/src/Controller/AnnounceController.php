@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AnnounceController extends AbstractController
 {
-    
+
     #[Route('/announce', name: 'app_announce')]
     public function index(): Response
     {
@@ -25,15 +25,16 @@ class AnnounceController extends AbstractController
 
     #[Route('/addannounce', name: 'app_addannounce')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
-    { 
+    {
         $form = $this->createForm(AnnounceFormType::class);
-        
+
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $myAnnounce = $form->getData();
-            $myAnnounce->setCreatedAt();
-            $myAnnounce->setUserId(1);
+            $myAnnounce->setCreated_At();
+            $myAnnounce->setUser_Id(1);
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
@@ -53,7 +54,7 @@ class AnnounceController extends AbstractController
     {
         // $loggedUser = $this->getUser()->getId();
         $repository = $entityManager->getRepository(Announces::class);
-        $announces = $repository->findBy([], ['created_at' =>'ASC']);
+        $announces = $repository->findBy([], ['created_at' => 'ASC']);
         return $this->render('announce/all.html.twig', [
             'announces' => $announces,
             // 'userId' => $loggedUser
@@ -61,7 +62,8 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/removeannounce{id}', name: 'app_removeannounce')]
-    public function remove(int $id, EntityManagerInterface $entityManager){
+    public function remove(int $id, EntityManagerInterface $entityManager)
+    {
         $announce = $entityManager->getReference(Announces::class, $id);
         $entityManager->remove($announce);
         $entityManager->flush();
@@ -70,7 +72,7 @@ class AnnounceController extends AbstractController
     }
 
     // #[Route('/userannounces', name: 'app_userannounces')]
-    
+
     #[Route('/announce/{id}', name: 'app_announcebyid')]
     public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
     {
@@ -87,7 +89,8 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/getannounce{id}', name: 'app_getannounce')]
-    public function get(int $id, EntityManagerInterface $entityManager){
+    public function get(int $id, EntityManagerInterface $entityManager)
+    {
         $announce = $entityManager->getReference(Announces::class, $id);
 
         return $this->render('announce/get.html.twig', [
@@ -96,7 +99,8 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/updateannounce{id}', name: 'app_updateannounce')]
-    public function update(int $id, EntityManagerInterface $entityManager, Request $request){
+    public function update(int $id, EntityManagerInterface $entityManager, Request $request)
+    {
         $announce = $entityManager->getReference(Announces::class, $id);
         $announce->setImages($request->request->get('images'));
         $announce->setTitle($request->request->get('title'));
@@ -107,5 +111,4 @@ class AnnounceController extends AbstractController
 
         return $this->redirectToRoute('app_announce');
     }
-
 }

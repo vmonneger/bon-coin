@@ -56,7 +56,10 @@
 								</div>
 							</div>
 							<div class="btn_vote">Voter</div>
+							<form action="{{ path('app_vote', { sellerId: '1' }) }}" method="post">
+       
 							<div class="updown">
+							<button class="" name="vote" value="up">
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
 								<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -73,6 +76,8 @@
 									</g>
 
 								</svg>
+							</button>
+        <button class="" name="vote" value="down">
 
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
@@ -90,6 +95,8 @@
 										                                        C464.8,261.002,459,277.102,447.3,287.202z"/>
 									</g>
 								</svg>
+		</button>
+    </form>
 							</div>
 
 						</div>

@@ -35,7 +35,6 @@
 .topMenu .topMenu_rightpart div {
   display: flex;
   gap: 25px;
-
 }
 
 .topMenu .topMenu_rightpart a {
@@ -158,6 +157,11 @@
   border: none;
 }
 
+.announce .card_link {
+  color: unset;
+  text-decoration: none;
+}
+
 .announce .card:hover {
   box-shadow: 0 -1px 16px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
   border: none;
@@ -171,7 +175,7 @@
   white-space: nowrap;
 }
 .card-body {
-  padding: 0 15px;
+  padding: 0 15px !important;
 }
 
 .figure {
