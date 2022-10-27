@@ -17,7 +17,7 @@
 															        {% endif %} #}
       {% if is_granted('ROLE_USER') %}
         <div>
-          <a href="/myannounces" type="submit" class="topMenu_announces">Mes annonces</a>
+          <a href="/myannounces/{{ app.user.id }}" type="submit" class="topMenu_announces">Mes annonces</a>
         </div>
         <div>
           <a class="profile" href="/profile">

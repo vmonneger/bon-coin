@@ -20,7 +20,7 @@
           <div class="card_count">
             <div class="count">
               <div class="notes">
-                <h3>{{ upvote + downvote }}</h3>
+                <h3>{{ (upvote|length) + (downvote|length) }}</h3>
                 <p>Notes</p>
               </div>
               <div class="sales">
@@ -49,7 +49,7 @@
 																																																																																																																																                                        c24.1,0,43.8,19.6,43.8,43.8v1H465.6z" />
                   </g>
                 </svg>
-                <small>{{ downvote }}</small>
+                <small>{{ upvote|length }}</small>
               </div>
 
               <div class="down">
@@ -68,7 +68,7 @@
 																																																																																																																															                                        C464.8,261.002,459,277.102,447.3,287.202z" />
                   </g>
                 </svg>
-                <small>{{ downvote }}</small>
+                <small>{{ downvote|length }}</small>
               </div>
             </div>
           </div>
@@ -119,7 +119,58 @@
               </div>
             </form>
           </div>
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          
+	{% if (announces|length) >= 1 %}
+		<div>
+			{# {{userId}} #}
+
+			<ul class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+				{% for announce in announces %}
+					<li class="announce col">
+					<a href="/announce/{{ announce.id }}" class="card_link">
+						<div
+							class="card mb-3">
+							{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
+							<figure class="figure">
+								<img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure>
+							<div class="price_container">
+								<div class="price">{{announce.price}}<sup>€00</sup>
+								</div>
+							</div>
+							<div class="card-body">
+								<h6 class="card-title">{{announce.title}}</h6>
+							</div>
+							{% if is_granted("EDIT", announce) %}
+							<div class="card-footer">
+								<a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+									</svg>
+								</a>
+								<a href="{# {{ path('app_removeannounce', { id: announce.id }) }} #}" class="btn_tools">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+										<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+										<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+									</svg>
+								</a>
+							</div>
+							{% endif %}
+						</div>
+						</a>
+					</li>
+
+				{% endfor %}
+			</ul>
+		</div>
+	{% else %}
+		<div class="alert_noresult">Il n'y a pas d'annonces ...
+			<a href="/addannounce" type="submit" class="add_link">Créez en une</a>
+		</div>
+	{% endif %}
+
+          </div>
           <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
       </div>

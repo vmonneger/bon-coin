@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Entity\Vote;
+use App\Entity\Announces;
+
 
 class ProfileController extends AbstractController
 {
@@ -25,6 +27,7 @@ class ProfileController extends AbstractController
             'created_at' => $user->getCreated_At(), 
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
+            'announces' => $user->getAnnounces()
         ]);
     }
 

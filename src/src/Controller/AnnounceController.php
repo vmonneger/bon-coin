@@ -5,6 +5,10 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Announces;
+use App\Entity\User;
+use App\Entity\Vote;
+
+
 use App\Repository\AnnouncesRepository;
 use App\Form\AnnounceFormType;
 use Doctrine\ORM\EntityManager;
@@ -75,13 +79,20 @@ class AnnounceController extends AbstractController
     {
         // $loggedUser = $this->getUser()->getId();
         // $announce = $entityManager->getReference(Announces::class, $id);
+        $userID = $this->getUser()->getId();
+        $user = $entityManager->getRepository(User::class)->find($userID);
+        $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $userID));
+
         $repository = $entityManager->getRepository(Announces::class);
         $announce = $repository->find($id);
-        // dd($announce->getUser_Id()->getName()); 
 
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
-            'sellerId' => $announce->getUserId()->getId()
+            'sellerId' => $announce->getUserId()->getId(),
+            'user' => $announce->getUserId(), 
+            'announces' => $user->getAnnounces(), 
+            'downvote' => $vote ? $vote->getDownvote() : 0,
+            'upvote' => $vote ? $vote->getUpvote() : 0,
         ]);
     }
 
@@ -115,5 +126,20 @@ class AnnounceController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('app_announce');
+    }
+
+    #[Route('/myannounces/{id}', name:"app_getmyannounces")]
+
+    public function getmyannounces(int $id, EntityManagerInterface $entityManager, Request $request) {
+        $userID = $this->getUser()->getId();
+
+        $repository = $entityManager->getRepository(Announces::class);
+        $announce = $repository->find($id);
+        $user = $entityManager->getRepository(User::class)->find($userID);
+
+        return $this->render('announce/myannounces.html.twig', [
+            'user' => $announce->getUserId(), 
+            'announces' => $user->getAnnounces(), 
+        ]);
     }
 }
