@@ -40,12 +40,12 @@ class Announces
         return $this->id;
     }
 
-    public function getUserId(): ?int
+    public function getUser_Id(): ?int
     {
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUser_Id(int $user_id): self
     {
         $this->user_id = $user_id;
 
@@ -88,12 +88,12 @@ class Announces
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreated_At(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(): self
+    public function setCreated_At(): self
     {
         $this->created_at = new \DateTime('now');;
 
