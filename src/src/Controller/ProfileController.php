@@ -22,6 +22,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/index.html.twig', [
             'email' => $user->getEmail(),
             'name' => $user->getName(),
+            'created_at' => $user->getCreated_At(), 
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
         ]);
