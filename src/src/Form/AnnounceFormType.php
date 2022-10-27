@@ -10,6 +10,10 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -18,10 +22,13 @@ class AnnounceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            // ->add('image_1', FileType::class)
+            // ->add('image_2', FileType::class)
+            // ->add('image_3', FileType::class)
             ->add('images')
-            ->add('title')
+            ->add('title',  TextType::class, ['label' => 'Titre de l\'annonce',])
             ->add('description')
-            ->add('price')
+            ->add('price', IntegerType::class, ['label' => 'Prix de l\'annonce'])
             ->add('tags', EntityType::class, [
                 "multiple" => true,
                 'class' => Tags::class,

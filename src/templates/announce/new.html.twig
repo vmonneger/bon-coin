@@ -1,5 +1,11 @@
+{% extends 'menu.html.twig' %}
+{% block container %}
+<h3>Déposer une annonce</h3>
+
+
 {{ form_start(announceForm)}}
 {{ form_widget(announceForm)}}
 
-<button type="submit"> Create</button>
+<button type="submit" class="submit_announce" role="alert"> Publier mon annonce</button>
 {{ form_end(announceForm)}}
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'menu.html.twig' %}
+
+{% block container %}
+	{% if announce %}
+		<div>
+
+			{# {{userId}} #}
+			<div class="row g-4 mt-3">
+
+				<div
+					class="single_announce col-9">
+
+					{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
+					<figure class="figure" style="background-image: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')"></figure>
+					{# <img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure> #}
+					<div class="price_container">
+						<div class="price">{{announce.price}}<sup>€00</sup>
+						</div>
+					</div>
+					<div class="card-body">
+						<h5 class="card-title">{{announce.title}}</h5>
+						<hr/>
+						<h6>Description</h6>
+						<p class="card-text">
+							{{announce.description}}
+						</p>
+
+					</div>
+
+				</div>
+
+
+				<div class="col-3">
+					<div class="card_profile mb-3">
+						<img class="card_background_img" src="https://source.unsplash.com/9wg5jCEPBsw" alt="background-img"/>
+						<img class="card_profile_img" alt="profile_img" src="https://source.unsplash.com/7Sz71zuuW4k"/>
+						<div class="user_details">
+							<h3>Gordon Ramsay</h3>
+							<p>Membre depuis le
+								{# {{user.created_at|date('d F Y')}} #}
+							</p>
+						</div>
+						<div class="card_count">
+							<div class="count">
+								<div class="notes">
+									<h3>2.4M</h3>
+									<p>Notes</p>
+								</div>
+								<div class="sales">
+									<h3>202</h3>
+									<p>Ventes</p>
+								</div>
+								<div class="post">
+									<h3>552</h3>
+									<p>Annonces</p>
+								</div>
+							</div>
+							<div class="btn_vote">Voter</div>
+							<div class="updown">
+								<?xml
+								version="1.0" encoding="iso-8859-1"?>
+								<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+								<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490.2 490.2" style="enable-background:new 0 0 490.2 490.2;" xml:space="preserve" width="25">
+									<g>
+										<path d="M490.1,234.464c0-37.6-30.6-68.3-68.3-68.3H316.2v-76.1c0-32.2-9.4-55.4-28-69c-29.4-21.6-69.8-9.3-71.5-8.7
+										                                        c-5.1,1.6-8.6,6.3-8.6,11.7v85.5c0,67.3-78.1,90.2-81.4,91.2c-1,0.3-1.9,0.6-2.7,1.1c-5.8-11.6-17.8-19.6-31.6-19.6H35.2
+										                                        c-19.4,0-35.2,15.8-35.2,35.2v207.9c0,19.4,15.8,35.2,35.2,35.2h33.1c6.8,0,12.3-5.5,12.3-12.3s-5.6-12.2-12.3-12.2H35.2
+										                                        c-5.9,0-10.7-4.8-10.7-10.7v-207.9c0-5.9,4.8-10.7,10.7-10.7h57.3c5.9,0,10.7,4.8,10.7,10.7v196.1c0,37.6,30.6,68.3,68.3,68.3
+										                                        h209.2c46.4,0,75.9-24.3,81.1-66.3l28.2-177c0.1-0.6,0.2-1.3,0.2-1.9v-2.2H490.1z M465.6,235.564l-28.1,176.5
+										                                        c-3.7,30-22.8,45.3-56.8,45.3h-7.8H171.5c-24.1,0-43.8-19.6-43.8-43.8v-189.1c1.8,0.4,3.7,0.3,5.6-0.2
+										                                        c4.1-1.1,99.3-28.7,99.3-114.8v-75.6c10.4-1.6,28.2-2.5,41.1,6.9c11.9,8.8,18,25.3,18,49.3v88.4c0,6.8,5.5,12.3,12.3,12.3h117.9
+										                                        c24.1,0,43.8,19.6,43.8,43.8v1H465.6z"/>
+									</g>
+
+								</svg>
+
+								<?xml
+								version="1.0" encoding="iso-8859-1"?>
+								<!-- Generator: Adobe Illustrator 19.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+								<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 486.805 486.805" style="enable-background:new 0 0 486.805 486.805;" xml:space="preserve" width="25">
+									<g>
+										<path d="M485.9,241.402l-26.8-167c-5.2-41.9-34.5-66-80.4-66H243.6h-6.8h-65.9c-19.2,0-36.9,8.3-49.4,21.6
+										                                        c-4.5-5.5-11.4-8.9-19-8.9H24.7c-13.6,0-24.7,11.1-24.7,24.7v228.4c0,13.6,11.1,24.7,24.7,24.7h77.9c9,0,17-4.9,21.3-12.2l2.9,0.7
+										                                        c4.4,1.3,80.8,25,80.8,90.7v84.9c0,5.2,3.4,9.9,8.4,11.4c0.9,0.3,12.9,4,28.3,4c13.3,0,29.1-2.7,42.5-12.6
+										                                        c18.4-13.5,27.7-36.5,27.7-68.4v-75.8h32.4h56.9h15.8c15.6,0,31-5.8,43.3-16.2C480.9,290.002,489.8,265.402,485.9,241.402z
+										                                            M103.2,274.302c0,0.4-0.3,0.7-0.7,0.7H24.7c-0.4,0-0.7-0.3-0.7-0.7v-228.4c0-0.4,0.3-0.7,0.7-0.7h77.9c0.4,0,0.7,0.3,0.7,0.7
+										                                        v228.4H103.2z M447.3,287.202c-7.9,6.8-17.8,10.5-27.7,10.5h-15.8h-56.9h-44.5c-6.6,0-12,5.4-12,12v87.8c0,23.8-6,40.3-17.8,49
+										                                        c-13,9.6-30.8,8.6-41.1,7v-75.3c0-35.6-17.3-66.7-49.9-89.9c-23.9-16.9-47.6-23.7-48.6-24c-0.2,0-0.3-0.1-0.5-0.1l-5.2-1.2v-191.5
+										                                        c0.2-0.7,0.4-1.4,0.5-2.1c3.3-21,21.8-36.9,43.1-36.9h65.9h6.8h135.1c33.9,0,52.9,15.2,56.6,45.1c0,0.2,0,0.3,0.1,0.4l26.9,167.1
+										                                        C464.8,261.002,459,277.102,447.3,287.202z"/>
+									</g>
+								</svg>
+							</div>
+
+						</div>
+					</div>
+					<p class="card-text">
+						<small class="text-muted">Annonce en ligne depuis le
+							{{announce.created_at|date('d F Y')}}.</small>
+					</p>
+
+					<div>
+						<span>#Immobilier</span>
+						<span>#Jardin</span>
+					</div>
+					{% if (is_granted("ROLE_ADMIN")) or (app.user.id is same as announce.user_id) %}
+						<div class="tools mt-3">
+
+							<a href="{# {{ path('app_editannounce', { id: announce.id }) }} #}" class="add">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+								</svg>
+								Modifier
+							</a>
+							<a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="submit_announce">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+								</svg>
+								Supprimer
+							</a>
+						</div>
+					{% endif %}
+				</div>
+
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

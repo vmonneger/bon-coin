@@ -51,10 +51,12 @@ class AnnounceController extends AbstractController
     #[Route('/allannounce', name: 'app_announce')]
     public function allAnnounces(EntityManagerInterface $entityManager): Response
     {
+        // $loggedUser = $this->getUser()->getId();
         $repository = $entityManager->getRepository(Announces::class);
         $announces = $repository->findBy([], ['created_at' =>'ASC']);
         return $this->render('announce/all.html.twig', [
             'announces' => $announces,
+            // 'userId' => $loggedUser
         ]);
     }
 

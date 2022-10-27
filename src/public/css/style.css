@@ -1,0 +1,342 @@
+.topMenu {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15%;
+  position: fixed;
+  z-index: 9000;
+
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -1px 4px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  /* max-width: 1066px; */
+  align-items: center;
+  top: 0px;
+}
+
+.topMenu .topMenu_leftpart #logo {
+  width: 14rem;
+  height: auto;
+}
+
+.topMenu .topMenu_leftpart {
+  display: flex;
+  gap: 15px;
+}
+
+.topMenu .topMenu_rightpart {
+  display: flex;
+  gap: 25px;
+  align-items: flex-end;
+}
+
+.topMenu .topMenu_rightpart a {
+  color: #ff6e14;
+  position: relative;
+  font-weight: 500;
+  padding: 6px 0;
+  text-decoration: none;
+}
+
+.topMenu .topMenu_rightpart a:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: #ff6e14;
+  border-radius: 12px;
+  transition: all 0.4s ease;
+}
+.topMenu .topMenu_rightpart a:hover:before {
+  width: 100%;
+}
+.topMenu .topMenu_rightpart a:before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.topMenu .topMenu_rightpart a small {
+    color: black;
+    font-weight: 400;
+}
+.add {
+  align-self: center;
+  background-color: #ff6e14;
+  border-radius: 4px;
+  color: #fff;
+  /* height: 4rem; */
+  margin-right: 1rem;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+  outline: 3px solid #ff6e14;
+
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  gap: 10px;
+}
+
+.add:hover {
+  color: #ff6e14;
+  background-color: #fff;
+  transition: background-color 0.3s;
+  /* outline: 3px solid #ff6e14; */
+}
+
+.add_link {
+  color: #ff6e14;
+  font-weight: bold;
+}
+
+.alert_noresult {
+  width: 100%;
+  text-align: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  margin-top: 5%;
+}
+
+#announce_form div {
+  display: flex;
+  gap: 15px;
+  margin: 5px 0;
+}
+
+.submit_announce {
+  color: #ff6e14;
+  background-color: #fff;
+  padding: 10px;
+  outline: 3px solid #ff6e14;
+  border-radius: 4px;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+}
+
+.submit_announce:hover {
+  color: #fff;
+  background-color: #ff6e14;
+  transition: background-color 0.3s;
+}
+
+.announce {
+  list-style: none;
+}
+.announce .card {
+  box-shadow: 0 -1px 4px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  border: none;
+}
+
+.announce .card:hover {
+  box-shadow: 0 -1px 16px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  border: none;
+  transform: scale(1.01);
+}
+
+.announce .card-title {
+  width: 20ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.card-body {
+  padding: 0 15px;
+}
+
+.figure {
+  margin-bottom: 0px;
+}
+
+.card-footer {
+  text-align: end;
+}
+
+.btn_tools {
+  color: #ff6e14;
+  font-weight: bold;
+  padding: 5px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.btn_tools:hover {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #ff6e14;
+  color: #fff;
+}
+
+/* USER */
+.card_profile {
+  height: auto;
+  background-color: #ffffff;
+  margin: 0 auto;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.card_profile_img {
+  width: 120px;
+  height: 120px;
+  background-color: #868d9b;
+  /* background: url("https://source.unsplash.com/7Sz71zuuW4k"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid #ffffff;
+  border-radius: 120px;
+  margin: 0 auto;
+  margin-top: -60px;
+}
+
+.card_background_img {
+  width: 100%;
+  height: 180px;
+  background-color: #e1e7ed;
+  /* background: url("https://source.unsplash.com/9wg5jCEPBsw"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.user_details p {
+  margin-bottom: 20px;
+  margin-top: -5px;
+}
+
+.user_details h3 {
+  margin-top: 10px;
+}
+
+.card_count {
+  padding: 30px;
+  border-top: 1px solid #dde1e7;
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.count p {
+  margin-top: -10px;
+}
+
+.btn {
+  padding: 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: #24c5a1;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.single_announce figure {
+  height: 750px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tools .add {
+  margin-right: 0px;
+}
+
+.price_container {
+  height: 12px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.price_container .price {
+  background-color: #fff;
+  text-align: right;
+  width: fit-content;
+  transform: translate(0px, -40px);
+  padding: 15px;
+  font-weight: 400;
+  border-radius: 15px 0 0 0;
+  font-size: 25px;
+}
+
+.btn_vote {
+  color: #ff6e14;
+}
+
+.updown {
+  display: flex !important;
+  justify-content: center;
+  align-content: center;
+  gap: 45px;
+}
+
+/* MENU  */
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.profile_pastille {
+  height: 45px;
+  width: 45px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  box-shadow: 0 -1px 4px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
+  margin: 0;
+}
+
+.profile_pastille .online {
+  width: 15px;
+  height: 15px;
+  background-color: green;
+  border-radius: 50%;
+  outline: 1px solid #fff;
+}
+
+.btn_logout {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
