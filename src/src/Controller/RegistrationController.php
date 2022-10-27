@@ -33,7 +33,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setCreatedAt(new \DateTimeImmutable('now'));
+            $user->setCreated_At(new \DateTimeImmutable('now'));
 
 
             $entityManager->persist($user);
