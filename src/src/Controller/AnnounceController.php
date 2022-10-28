@@ -93,17 +93,16 @@ class AnnounceController extends AbstractController
         // $loggedUser = $this->getUser()->getId();
         // $announce = $entityManager->getReference(Announces::class, $id);
         $userID = $this->getUser()->getId();
-        $user = $entityManager->getRepository(User::class)->find($userID);
-        $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $userID));
-
+        
         $repository = $entityManager->getRepository(Announces::class);
         $announce = $repository->find($id);
+        $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $announce->getUserId()));
 
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
             'sellerId' => $announce->getUserId()->getId(),
             'user' => $announce->getUserId(), 
-            'announces' => $user->getAnnounces(), 
+            'announces' => $announce->getUserId()->getAnnounces(), 
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
         ]);

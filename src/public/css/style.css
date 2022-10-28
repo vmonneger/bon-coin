@@ -251,8 +251,14 @@
 .count {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 28px;
+}
+
+.count hr {
+  border: 1px solid black;
+  transform: rotate(90deg);
+  width: 55px;
 }
 
 .count p {
