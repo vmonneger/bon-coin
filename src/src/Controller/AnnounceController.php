@@ -9,7 +9,7 @@ use App\Entity\Tags;
 use App\Entity\User;
 use App\Entity\Vote;
 
-
+use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\AnnouncesRepository;
 use App\Form\AnnounceFormType;
 use Doctrine\ORM\EntityManager;
@@ -38,11 +38,23 @@ class AnnounceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
+            $idUser = $this->getUser();
             $myAnnounce = $form->getData();
             $myAnnounce->setCreated_At();
             $myAnnounce->setUserId($idUser);
 
+            $file = $form['Image']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/';
+            $originalFileName = $file->getClientOriginalName();
+
+            $baseFileName = pathinfo($originalFileName, PATHINFO_FILENAME);
+
+            $fileName = $baseFileName . '-' . uniqId() . '-' . $file->getClientOriginalName();
+
+            $file->move($destination, $fileName);
+
+            $myAnnounce->setImage($fileName);
+            
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
 
@@ -97,27 +109,50 @@ class AnnounceController extends AbstractController
         ]);
     }
 
-    // #[Route('/getannounce/{id}', name: 'app_getannounce')]
-    // public function get(int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo){
+    #[Route('/getannounce/{id}', name: 'app_getannounce')]
+    public function get(ManagerRegistry $doctrine, int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo, Request $request){
 
-    //     $announce = $entityManager->getReference(Announces::class, $id);
-    //     $tags = [];
-    //     foreach ($announce->getTags() as $tag) {
-    //         $tags[] = $tag->getId();
-    //     }
+        $announce = $doctrine->getRepository(Announces::class)->find($id);
+        $form = $this->createForm(AnnounceFormType::class, $announce);
+        $form->handleRequest($request);
+        // $tags = [];
+        // foreach ($announce->getTags() as $tag) {
+        //     $tags[] = $tag->getId();
+        // }
 
-    //     return $this->render('announce/get.html.twig', [
-    //         'announce' => $announce, 'tags' => $tags
-    //     ]);
-    // }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $myAnnounce = $form->getData();
+            $announce->setTitle($myAnnounce->getTitle());
+            $announce->setDescription($myAnnounce->getDescription());
+            $announce->setPrice($myAnnounce->getPrice());
+    
+            $file = $form['Image']->getData();
+    
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/';
+            $originalFileName = $file->getClientOriginalName();
+    
+            $baseFileName = pathinfo($originalFileName, PATHINFO_FILENAME);
+    
+            $fileName = $baseFileName . '-' . uniqId() . '-' . $file->getClientOriginalName();
+    
+            $file->move($destination, $fileName);
+
+            $announce->setImage($fileName);
+
+            $entityManager->persist($announce);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_announce');
+        }
+        return $this->render('announce/new.html.twig', [
+            'announceForm' => $form->createView()
+        ]);
+    }
 
     #[Route('/updateannounce/{id}', name: 'app_updateannounce')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request){
-        $announce = $entityManager->getReference(Announces::class, $id);
-        $announce->setImages($request->request->get('images'));
-        $announce->setTitle($request->request->get('title'));
-        $announce->setDescription($request->request->get('description'));
-        $announce->setPrice($request->request->get('price'));
+
+     
 
         $tags = $request->request->all('tags');
 

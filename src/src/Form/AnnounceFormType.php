@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -22,10 +23,7 @@ class AnnounceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('image_1', FileType::class)
-            // ->add('image_2', FileType::class)
-            // ->add('image_3', FileType::class)
-            ->add('images')
+            ->add('Image', FileType::class,array('data_class' => null))
             ->add('title',  TextType::class, ['label' => 'Titre de l\'annonce',])
             ->add('description')
             ->add('price', IntegerType::class, ['label' => 'Prix de l\'annonce'])
@@ -33,8 +31,7 @@ class AnnounceFormType extends AbstractType
                 "multiple" => true,
                 'class' => Tags::class,
                 'choice_label' => 'name'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

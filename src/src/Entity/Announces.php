@@ -17,9 +17,6 @@ class Announces
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $images = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -38,6 +35,9 @@ class Announces
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_id = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Image = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -46,18 +46,6 @@ class Announces
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getImages(): ?string
-    {
-        return $this->images;
-    }
-
-    public function setImages(string $images): self
-    {
-        $this->images = $images;
-
-        return $this;
     }
 
     public function getTitle(): ?string
@@ -140,6 +128,18 @@ class Announces
     public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }
