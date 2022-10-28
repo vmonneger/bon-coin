@@ -41,7 +41,7 @@ class AnnounceController extends AbstractController
             $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
             $myAnnounce = $form->getData();
             $myAnnounce->setCreated_At();
-            $myAnnounce->setUser_Id($idUser);
+            $myAnnounce->setUserId($idUser);
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
