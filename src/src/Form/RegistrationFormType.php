@@ -11,17 +11,24 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('profilepicture', FileType::class, array('data_class' => null, 'required' => false, 'label' => 'Photo de profil'))
+            ->add('backgroundpicture', FileType::class,array('data_class' => null, 'required' => false, 'label' => 'Photo d\'arrière plan'))
             ->add('email')
-            ->add('name')
+            ->add('name', TextType::class, ['label' => 'Nom'])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
+                'label' => 'Mot de passe', 
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
