@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Announces;
+use App\Entity\Tags;
 use App\Entity\User;
 use App\Entity\Vote;
 
@@ -40,7 +41,7 @@ class AnnounceController extends AbstractController
             $idUser = $this->getUser() ? $this->getUser()->getId() : 1;
             $myAnnounce = $form->getData();
             $myAnnounce->setCreated_At();
-            $myAnnounce->setUserId($this->getUser());
+            $myAnnounce->setUserId($idUser);
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
@@ -119,9 +120,21 @@ class AnnounceController extends AbstractController
 
         $tags = $request->request->all('tags');
 
-        // foreach ($tags as $tag) {
-        //     $announce->addTag($tag);
-        // }
+        foreach ($tags as $tag) {
+            $myTag = new Tags();
+            if ($tag == 1) {
+                $myTag->setName("Immobilier");
+            }
+            if ($tag == 2) {
+                $myTag->setName("Vacance");
+            }
+            if ($tag == 3) {
+                $myTag->setName("Vehicule");
+            }
+            $entityManager->persist($myTag);
+            $announce->addTag($myTag);
+        }
+        $entityManager->persist($announce);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_announce');
