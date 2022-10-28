@@ -46,10 +46,10 @@
 									<h3>{{ (upvote|length) + (downvote|length) }}</h3>
 									<p>Notes</p>
 								</div>
-								<div class="sales">
+								{# <div class="sales">
 									<h3>202</h3>
 									<p>Ventes</p>
-								</div>
+								</div> #}
 								<div class="post">
 									<h3>{{announces.count()}}</h3>
 									<p>{{ announces|length > 1 ? "Annonces" : "Annonce" }}</p>
@@ -107,8 +107,9 @@
 					</p>
 
 					<div>
-						<span>#Immobilier</span>
-						<span>#Jardin</span>
+					{% for tag in announce.tags %}
+						<span>#{{tag.name}}</span>
+					{% endfor %}
 					</div>
 					{% if (is_granted("ROLE_ADMIN")) or (is_granted("EDIT", announce)) %}
 						<div class="tools mt-3">

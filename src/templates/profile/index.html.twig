@@ -21,15 +21,12 @@
             <div class="count">
               <div class="notes">
                 <h3>{{ (upvote|length) + (downvote|length) }}</h3>
-                <p>Notes</p>
+                <p>Note{{ ((upvote|length) + (downvote|length)) > 1 ? "s" :""}}</p>
               </div>
-              <div class="sales">
-                <h3>202</h3>
-                <p>Ventes</p>
-              </div>
+              <hr>
               <div class="post">
-                <h3>552</h3>
-                <p>Annonces</p>
+                <h3>{{ announces|length }}</h3>
+                <p>Annonce{{ announces|length > 1 ? "s" : "" }}</p>
               </div>
             </div>
             <div class="btn_vote">Votes</div>
@@ -73,12 +70,7 @@
             </div>
           </div>
         </div>
-        <p class="card-text">
-          <small class="text-muted">
-            Annonce en ligne depuis le
-            {# {{announce.created_at|date('d F Y')}}. #}
-          </small>
-        </p>
+        
       </div>
 
       <div class="col-9 profile-tab">
@@ -89,9 +81,7 @@
           <li class="nav-item">
             <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mes annonces</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-          </li>
+        
         </ul>
         <div class="tab-content p-3" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
