@@ -44,11 +44,11 @@ class ProfileController extends AbstractController
         $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $userID));
         $user = $entityManager->getRepository(User::class)->find($userID);
 
-        $upvoteArray = $vote->getUpvote();
-        $downvoteArray = $vote->getDownvote();
-
         $upvoteDisabled = false;
         $downvoteDisabled = false;
+
+        $upvoteArray = $vote->getUpvote();
+        $downvoteArray = $vote->getDownvote();
 
         if (in_array($currentUserID, $upvoteArray)) {
             global $upvoteDisabled;
@@ -60,11 +60,12 @@ class ProfileController extends AbstractController
             $downvoteDisabled = true;
         }
         
+
         return $this->render('profile/getOne.html.twig', [
             'email' => $user->getEmail(),
             'name' => $user->getName(),
-            'downvote' => $vote ? count($vote->getDownvote()) : 0,
-            'upvote' => $vote ? count($vote->getUpvote()) : 0,
+            'downvote' => count($vote->getDownvote()),
+            'upvote' => count($vote->getUpvote()),
             'upvoteDisabled' => $upvoteDisabled ? 'disabled' : '',
             'downvoteDisabled' => $downvoteDisabled ? 'disabled' : '',
         ]);

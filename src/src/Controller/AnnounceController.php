@@ -8,7 +8,6 @@ use App\Entity\Announces;
 use App\Entity\Tags;
 use App\Entity\User;
 use App\Entity\Vote;
-
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\AnnouncesRepository;
 use App\Form\AnnounceFormType;
@@ -98,6 +97,7 @@ class AnnounceController extends AbstractController
         $announce = $repository->find($id);
         $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $announce->getUserId()));
 
+        // $vote->getAlreadyDownvote($this->getUser()->getId())
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
             'sellerId' => $announce->getUserId()->getId(),
@@ -105,6 +105,7 @@ class AnnounceController extends AbstractController
             'announces' => $announce->getUserId()->getAnnounces(), 
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
+            'vote' => $vote
         ]);
     }
 

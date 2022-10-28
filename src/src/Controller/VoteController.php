@@ -7,12 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class VoteController extends AbstractController
 {
-    #[Route('/vote/{sellerId}', name: 'app_vote', methods: "POST")]
-    public function postVote($sellerId, EntityManagerInterface $entityManager, Request $request): Response
+    #[Route('/vote/{sellerId}/{direction}', name: 'app_vote', methods: "POST")]
+    public function postVote($sellerId, $direction, EntityManagerInterface $entityManager): Response
     {   
         if ($sellerId === strval($this->getUser()->getId())) {
             return $this->json([
@@ -25,7 +24,6 @@ class VoteController extends AbstractController
         $upvoteArray = $vote->getUpvote();
         $downvoteArray = $vote->getDownvote();
 
-        $voteRequest = $request->request->get('vote');
         $loggedUserID = $this->getUser()->getId();
 
         $alreadyUpvote = false;
@@ -41,7 +39,7 @@ class VoteController extends AbstractController
             $alreadyDownvote = true;
         }
 
-        if ($voteRequest === 'up') {
+        if ($direction === 'up') {
             if ($alreadyUpvote) {
                 return $this->json([
                     'error' => 'Tu as déjà upvote'
@@ -60,7 +58,7 @@ class VoteController extends AbstractController
             $entityManager->flush();
         }
         
-        if ($voteRequest === 'down') {
+        if ($direction === 'down') {
             if ($alreadyDownvote) {
                 return $this->json([
                     'error' => 'Tu as déjà downvote'
@@ -81,6 +79,9 @@ class VoteController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_profile_id', ['userID' => $sellerId]);
+        return $this->json([
+            'voteDown' => count($downvoteArray),
+            'voteUp' => count($upvoteArray)
+        ]);
     }
 }
