@@ -186,14 +186,17 @@
   white-space: nowrap;
 }
 
-.card_link .card-body {
+.cardlink .card-body {
+  border-radius: 0px 0px 15px 15px;
+}
+
+.card-body {
   padding: 0 15px 15px !important;
   background-color: white;
   z-index: 3000;
   position: relative;
   transform: translate(0px, -8px);
   padding-top: 10px !important;
-  border-radius: 0px 0px 15px 15px;
 }
 
 .single_announce .card-body {
@@ -445,6 +448,25 @@
   width: 100%;
   text-align: right;
 }
+
+#registration_form div {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+#registration_form div input {
+ border: 1px solid #dadada;
+ padding: 5px;
+ border-radius: 5px;
+}
+
+#registration_form div label {
+  color: #787878;
+ }
+
+
+
 
 .profile-tab .nav-link {
   color: black;

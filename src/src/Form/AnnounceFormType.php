@@ -23,10 +23,10 @@ class AnnounceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Image', FileType::class,array('data_class' => null))
-            ->add('Image_2', FileType::class,array('data_class' => null))
-            ->add('Image_3', FileType::class,array('data_class' => null))
-            ->add('Image_4', FileType::class,array('data_class' => null))
+            ->add('Image', FileType::class,array('data_class' => null, 'required' => false))
+            ->add('Image_2', FileType::class,array('data_class' => null, 'required' => false))
+            ->add('Image_3', FileType::class,array('data_class' => null, 'required' => false))
+            ->add('Image_4', FileType::class,array('data_class' => null, 'required' => false))
             ->add('title',  TextType::class, ['label' => 'Titre de l\'annonce',])
             ->add('description')
             ->add('price', IntegerType::class, ['label' => 'Prix de l\'annonce'])
