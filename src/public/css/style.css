@@ -1,7 +1,7 @@
 .topMenu {
   display: flex;
   justify-content: space-between;
-  padding: 15px 15%;
+  padding: 5px 15%;
   position: fixed;
   z-index: 9000;
 
@@ -13,6 +13,9 @@
   top: 0px;
 }
 
+.topMenu_announces {
+  justify-content: center !important;
+}
 .topMenu .topMenu_leftpart #logo {
   width: 14rem;
   height: auto;
@@ -25,8 +28,13 @@
 
 .topMenu .topMenu_rightpart {
   display: flex;
-  gap: 25px;
+  gap: 80px;
   align-items: flex-end;
+}
+
+.topMenu .topMenu_rightpart div {
+  display: flex;
+  gap: 25px;
 }
 
 .topMenu .topMenu_rightpart a {
@@ -35,6 +43,14 @@
   font-weight: 500;
   padding: 6px 0;
   text-decoration: none;
+  height: 80px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .topMenu .topMenu_rightpart a:before {
@@ -57,8 +73,8 @@
 }
 
 .topMenu .topMenu_rightpart a small {
-    color: black;
-    font-weight: 400;
+  color: black;
+  font-weight: 400;
 }
 .add {
   align-self: center;
@@ -141,6 +157,11 @@
   border: none;
 }
 
+.announce .card_link {
+  color: unset;
+  text-decoration: none;
+}
+
 .announce .card:hover {
   box-shadow: 0 -1px 16px 0 rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);
   border: none;
@@ -154,7 +175,7 @@
   white-space: nowrap;
 }
 .card-body {
-  padding: 0 15px;
+  padding: 0 15px !important;
 }
 
 .figure {
@@ -271,7 +292,7 @@
 }
 
 .price_container {
-  height: 12px;
+  height: 1px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -283,11 +304,11 @@
   background-color: #fff;
   text-align: right;
   width: fit-content;
-  transform: translate(0px, -40px);
+  transform: translate(0px, -28px);
   padding: 15px;
   font-weight: 400;
   border-radius: 15px 0 0 0;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .btn_vote {
@@ -300,6 +321,16 @@
   align-content: center;
   gap: 45px;
 }
+
+.updown button {
+  border: none;
+  background-color: unset;
+}
+.updown button:hover {
+  fill: #ff6e14;
+
+}
+
 
 /* MENU  */
 
@@ -335,8 +366,37 @@
 }
 
 .btn_logout {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* PROFILE */
+
+.up,
+.down {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile_form .form-group {
+  margin: 10px 0px;
+}
+
+.profile_form-footer {
+  width: 100%;
+  text-align: right;
+}
+
+.profile-tab a {
+  color: black;
+}
+
+.profile-tab a:hover {
+  color: #ff6e14;
 }

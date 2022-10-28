@@ -35,15 +35,15 @@
 						<img class="card_background_img" src="https://source.unsplash.com/9wg5jCEPBsw" alt="background-img"/>
 						<img class="card_profile_img" alt="profile_img" src="https://source.unsplash.com/7Sz71zuuW4k"/>
 						<div class="user_details">
-							<h3>Gordon Ramsay</h3>
+							<h3>{{user.name}}</h3>
 							<p>Membre depuis le
-								{# {{user.created_at|date('d F Y')}} #}
+								{{user.created_at|date('d F Y')}}
 							</p>
 						</div>
 						<div class="card_count">
 							<div class="count">
 								<div class="notes">
-									<h3>2.4M</h3>
+									<h3>{{ (upvote|length) + (downvote|length) }}</h3>
 									<p>Notes</p>
 								</div>
 								<div class="sales">
@@ -51,12 +51,15 @@
 									<p>Ventes</p>
 								</div>
 								<div class="post">
-									<h3>552</h3>
-									<p>Annonces</p>
+									<h3>{{announces.count()}}</h3>
+									<p>{{ announces|length > 1 ? "Annonces" : "Annonce" }}</p>
 								</div>
 							</div>
 							<div class="btn_vote">Voter</div>
+							<form action="{{ path('app_vote', { sellerId: sellerId }) }}" method="post">
+       
 							<div class="updown">
+							<button class="" name="vote" value="up">
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
 								<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -73,6 +76,8 @@
 									</g>
 
 								</svg>
+							</button>
+        <button class="" name="vote" value="down">
 
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
@@ -90,6 +95,8 @@
 										                                        C464.8,261.002,459,277.102,447.3,287.202z"/>
 									</g>
 								</svg>
+		</button>
+    </form>
 							</div>
 
 						</div>
@@ -103,9 +110,8 @@
 						<span>#Immobilier</span>
 						<span>#Jardin</span>
 					</div>
-					{% if (is_granted("ROLE_ADMIN")) or (app.user.id is same as announce.user_id) %}
+					{% if (is_granted("ROLE_ADMIN")) or (is_granted("EDIT", announce)) %}
 						<div class="tools mt-3">
-
 							<a href="{# {{ path('app_editannounce', { id: announce.id }) }} #}" class="add">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
 									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
