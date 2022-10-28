@@ -1,5 +1,10 @@
 {% extends 'menu.html.twig' %}
 
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('js/vote_profil.js') }}"></script>
+{% endblock %}
+
 {% block container %}
 	{% if announce %}
 		<div>
@@ -56,10 +61,11 @@
 								</div>
 							</div>
 							<div class="btn_vote">Voter</div>
-							<form action="{{ path('app_vote', { sellerId: sellerId }) }}" method="post">
-       
+							{# <form action="{{ path('app_vote', { sellerId: sellerId }) }}" method="post"> #}
+							{% if is_granted("EDIT", announce) is same as(false) %}
+							{% endif %}
 							<div class="updown">
-							<button class="" name="vote" value="up">
+							<button class="js-vote" data-direction="up" name="vote" value="up" style="{{ vote.getAlreadyUpvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
 								<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -76,8 +82,9 @@
 									</g>
 
 								</svg>
+								<p class="js-vote-up">{{ vote.upvoteTotal }}</p>
 							</button>
-        <button class="" name="vote" value="down">
+        <button class="js-vote" data-direction="down" name="vote" value="down" style="{{ vote.getAlreadyDownvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
 
 								<?xml
 								version="1.0" encoding="iso-8859-1"?>
@@ -95,8 +102,9 @@
 										                                        C464.8,261.002,459,277.102,447.3,287.202z"/>
 									</g>
 								</svg>
+								<p class="js-vote-down">{{ vote.downvoteTotal }}</p>
 		</button>
-    </form>
+    {# </form> #}
 							</div>
 
 						</div>

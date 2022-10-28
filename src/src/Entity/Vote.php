@@ -63,4 +63,30 @@ class Vote
 
         return $this;
     }
+
+    public function getDownvoteTotal(): string
+    {
+        return count($this->getDownvote());
+    }
+
+    public function getUpvoteTotal(): string
+    {
+        return count($this->getUpvote());
+    }
+
+    public function getAlreadyUpvote($userId): bool
+    {
+        if (in_array($userId, $this->getUpvote())) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getAlreadyDownvote($userId): bool
+    {
+        if (in_array($userId, $this->getDownvote())) {
+            return true;
+        }
+        return false;
+    }
 }
