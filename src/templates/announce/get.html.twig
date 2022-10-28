@@ -2,14 +2,13 @@
 <div>
 Ton annonce
 
-{% for tag in tags %}
-            <li>{{ tag }}</li>
-{% endfor %}
 
 <form action="{{ path('app_updateannounce',{'id': announce.id}) }}" method="post">
-  <label for="images">Image :</label>
-  <input type="text" id="images" name="images" value="{{ announce.images }} "><br><br>
-
+  Ton ancienne image : <img style="width:80px; height:50px;" src="/uploads/{{ announce.Image }}"></img>
+  <br/>
+  <label for="images">Image :</label> 
+  <input type="file" id="images" name="images"><br><br>
+  
   <label for="title">Titre :</label>
   <input type="text" id="title" name="title" value="{{ announce.title }} "><br><br>
 
