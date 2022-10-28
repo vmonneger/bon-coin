@@ -81,7 +81,8 @@ class VoteController extends AbstractController
 
         return $this->json([
             'voteDown' => count($downvoteArray),
-            'voteUp' => count($upvoteArray)
+            'voteUp' => count($upvoteArray),
+            'voteTotal' => count($downvoteArray) + count($upvoteArray)
         ]);
     }
 }
