@@ -133,8 +133,9 @@ class AnnounceController extends AbstractController
 
             return $this->redirectToRoute('app_announce');
         }
-        return $this->render('announce/new.html.twig', [
-            'announceForm' => $form->createView()
+        return $this->render('announce/edit.html.twig', [
+            'announceForm' => $form->createView(),
+            'announce' => $announce, 
         ]);
     }
 

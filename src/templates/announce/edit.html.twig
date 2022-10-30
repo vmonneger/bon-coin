@@ -3,27 +3,27 @@
     <h5>Votre annonce</h5>
   <div class="row">
     <div class="col-6 card mb-3 edit-announce">
-      <figure class="figure" style="background-image: url('https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg')"></figure>
+      <figure class="figure" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure>
       <div class="price_container">
         <div class="price">
-          XX<sup>€xx</sup>
+          {{ announce.price }}<sup>€00</sup>
         </div>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Votre titre</h5>
+        <h5 class="card-title">{{ announce.title }}</h5>
         <p>
-          <small>Votre description</small>
+          <small>{{ announce.description }}</small>
         </p>
       </div>
     </div>
     <div class="col-6">
-      <h6>Créer mon annonce</h6>
+      <h6>Modifier mon annonce</h6>
       <hr style="border: 1px solid black;" />
       {{ form_start(announceForm) }}
       {{ form_widget(announceForm) }}
 
       <div class="text-right">
-        <button type="submit" class="submit_announce" role="alert">Créer mon annonce</button>
+        <button type="submit" class="submit_announce" role="alert">Modifier mon annonce</button>
       </div>
       {{ form_end(announceForm) }}
     </div>
