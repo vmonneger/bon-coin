@@ -399,7 +399,7 @@
   text-align: right;
 }
 
-.profile-tab a {
+.profile-tab .nav-link {
   color: black;
 }
 
