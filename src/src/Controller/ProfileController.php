@@ -9,26 +9,31 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\User;
 use App\Entity\Vote;
 use App\Entity\Announces;
-
-
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/profile/update', name: 'app_profile_update')]
+    public function update(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         $userID = $this->getUser()->getId();
 
-        $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $userID));
         $user = $entityManager->getRepository(User::class)->find($userID);
 
-        return $this->render('profile/index.html.twig', [
-            'email' => $user->getEmail(),
-            'name' => $user->getName(),
-            'created_at' => $user->getCreated_At(), 
-            'downvote' => $vote ? $vote->getDownvote() : 0,
-            'upvote' => $vote ? $vote->getUpvote() : 0,
-            'announces' => $user->getAnnounces()
-        ]);
+        $user->setName($request->request->get('name'))
+            ->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $request->request->get('password')
+                )
+                );
+
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $route = $request->headers->get('referer');
+
+                return $this->redirect($route);
     }
 
     #[Route('/profile/{userID}', name: 'app_profile_id')]
@@ -72,6 +77,24 @@ class ProfileController extends AbstractController
             'downvoteDisabled' => $downvoteDisabled ? 'disabled' : '',
             'announces' => $user->getAnnounces(),
             'vote' => $vote
+        ]);
+    }
+
+    #[Route('/profile', name: 'app_profile')]
+    public function index(EntityManagerInterface $entityManager): Response
+    {
+        $userID = $this->getUser()->getId();
+
+        $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $userID));
+        $user = $entityManager->getRepository(User::class)->find($userID);
+
+        return $this->render('profile/index.html.twig', [
+            'email' => $user->getEmail(),
+            'name' => $user->getName(),
+            'created_at' => $user->getCreated_At(), 
+            'downvote' => $vote ? $vote->getDownvote() : 0,
+            'upvote' => $vote ? $vote->getUpvote() : 0,
+            'announces' => $user->getAnnounces()
         ]);
     }
 }
