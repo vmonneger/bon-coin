@@ -31,20 +31,14 @@
             <div class="btn_vote">Votes</div>
             <div class="updown">
               <div class="up">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490.2 490.2" style="enable-background:new 0 0 490.2 490.2;" xml:space="preserve" width="25">
-                  <g>
-                    <path d="M490.1,234.464c0-37.6-30.6-68.3-68.3-68.3H316.2v-76.1c0-32.2-9.4-55.4-28-69c-29.4-21.6-69.8-9.3-71.5-8.7c24.1,0,43.8,19.6,43.8,43.8v1H465.6z" />
-                  </g>
-                </svg>
+                {{ source('@public_path'~asset('svg/thumbsup.svg')) }}
+
                 <small>{{ upvote|length }}</small>
               </div>
 
               <div class="down">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 486.805 486.805" style="enable-background:new 0 0 486.805 486.805;" xml:space="preserve" width="25">
-                  <g>
-                    <path d="M485.9,241.402l-26.8-167c-5.2-41.9-34.5-66-80.4-66H243.6h-6.8h-65.9c-19.2,0-36.9,8.3-49.4,21.6C464.8,261.002,459,277.102,447.3,287.202z" />
-                  </g>
-                </svg>
+                {{ source('@public_path'~asset('svg/thumbsdown.svg')) }}
+
                 <small>{{ downvote|length }}</small>
               </div>
             </div>

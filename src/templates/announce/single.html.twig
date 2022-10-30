@@ -54,11 +54,13 @@
 							{# <form action="{{ path('app_vote', { sellerId: sellerId }) }}" method="post"> #}
 							<div class="updown">
 								<button class="js-vote" data-direction="up" data-user="{{ announce.getUserId.getId }}" name="vote" value="up" style="{{ vote.getAlreadyUpvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
-									{{ include('svg/thumbsup.svg.twig') }}
+									{{ source('@public_path'~asset('svg/thumbsup.svg')) }}
+
 									<p class="js-vote-up">{{ vote.upvoteTotal }}</p>
 								</button>
 								<button class="js-vote" data-direction="down" data-user="{{ announce.getUserId.getId }}" name="vote" value="down" style="{{ vote.getAlreadyDownvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
-									{{ include('svg/thumbsdown.svg.twig') }}
+									{{ source('@public_path'~asset('svg/thumbsdown.svg')) }}
+
 									<p class="js-vote-down">{{ vote.downvoteTotal }}</p>
 								</button>
 							</div>
