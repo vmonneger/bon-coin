@@ -62,12 +62,16 @@ class ProfileController extends AbstractController
         
 
         return $this->render('profile/getOne.html.twig', [
+            'id' => $user->getId(), 
             'email' => $user->getEmail(),
             'name' => $user->getName(),
+            'created_at' => $user->getCreated_At(), 
             'downvote' => count($vote->getDownvote()),
             'upvote' => count($vote->getUpvote()),
             'upvoteDisabled' => $upvoteDisabled ? 'disabled' : '',
             'downvoteDisabled' => $downvoteDisabled ? 'disabled' : '',
+            'announces' => $user->getAnnounces(),
+            'vote' => $vote
         ]);
     }
 }
