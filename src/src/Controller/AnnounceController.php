@@ -140,42 +140,15 @@ class AnnounceController extends AbstractController
         ]);
     }
 
-    #[Route('/updateannounce/{id}', name: 'app_updateannounce')]
-    public function update(int $id, EntityManagerInterface $entityManager, Request $request){
+    #[Route('/myannounces', name:"app_getmyannounces")]
 
-        $tags = $request->request->all('tags');
-
-        foreach ($tags as $tag) {
-            $myTag = new Tags();
-            if ($tag == 1) {
-                $myTag->setName("Immobilier");
-            }
-            if ($tag == 2) {
-                $myTag->setName("Vacance");
-            }
-            if ($tag == 3) {
-                $myTag->setName("Vehicule");
-            }
-            $entityManager->persist($myTag);
-            $announce->addTag($myTag);
-        }
-        $entityManager->persist($announce);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('app_announce');
-    }
-
-    #[Route('/myannounces/{id}', name:"app_getmyannounces")]
-
-    public function getmyannounces(int $id, EntityManagerInterface $entityManager, Request $request) {
+    public function getmyannounces(EntityManagerInterface $entityManager, Request $request) {
         $userID = $this->getUser()->getId();
 
-        $repository = $entityManager->getRepository(Announces::class);
-        $announce = $repository->find($id);
         $user = $entityManager->getRepository(User::class)->find($userID);
 
         return $this->render('announce/myannounces.html.twig', [
-            'user' => $announce->getUserId(), 
+            'user' => $user, 
             'announces' => $user->getAnnounces(), 
         ]);
     }
