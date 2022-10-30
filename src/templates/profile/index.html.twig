@@ -31,20 +31,14 @@
             <div class="btn_vote">Votes</div>
             <div class="updown">
               <div class="up">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490.2 490.2" style="enable-background:new 0 0 490.2 490.2;" xml:space="preserve" width="25">
-                  <g>
-                    <path d="M490.1,234.464c0-37.6-30.6-68.3-68.3-68.3H316.2v-76.1c0-32.2-9.4-55.4-28-69c-29.4-21.6-69.8-9.3-71.5-8.7c24.1,0,43.8,19.6,43.8,43.8v1H465.6z" />
-                  </g>
-                </svg>
+                {{ source('@public_path'~asset('svg/thumbsup.svg')) }}
+
                 <small>{{ upvote|length }}</small>
               </div>
 
               <div class="down">
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 486.805 486.805" style="enable-background:new 0 0 486.805 486.805;" xml:space="preserve" width="25">
-                  <g>
-                    <path d="M485.9,241.402l-26.8-167c-5.2-41.9-34.5-66-80.4-66H243.6h-6.8h-65.9c-19.2,0-36.9,8.3-49.4,21.6C464.8,261.002,459,277.102,447.3,287.202z" />
-                  </g>
-                </svg>
+                {{ source('@public_path'~asset('svg/thumbsdown.svg')) }}
+
                 <small>{{ downvote|length }}</small>
               </div>
             </div>
@@ -55,16 +49,16 @@
 
       <div class="col-9 profile-tab">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Paramètres</a>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Paramètres</button>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Mes annonces</a>
+          <li class="nav-item" role="presentation">
+           <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Mes annonces</button>
           </li>
         
         </ul>
         <div class="tab-content p-3" id="myTabContent">
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+           <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <form method="post" class="profile_form">
               {# {% if error %}
 								<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -89,59 +83,60 @@
               </div>
             </form>
           </div>
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
           
-	{% if (announces|length) >= 1 %}
-		<div>
-			<ul class="row row-cols-1 row-cols-md-3 g-4 mt-3">
-				{% for announce in announces %}
-					<li class="announce col">
-					<a href="/announce/{{ announce.id }}" class="card_link">
-						<div
-							class="card mb-3">
-							{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
-							<figure class="figure">
-								<img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure>
-							<div class="price_container">
-								<div class="price">{{announce.price}}<sup>€00</sup>
-								</div>
-							</div>
-							<div class="card-body">
-								<h6 class="card-title">{{announce.title}}</h6>
-							</div>
-							{% if is_granted("EDIT", announce) %}
-							<div class="card-footer">
-								<a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
-										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-									</svg>
-								</a>
-								<a href="{# {{ path('app_removeannounce', { id: announce.id }) }} #}" class="btn_tools">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
-										<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-										<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-									</svg>
-								</a>
-							</div>
-							{% endif %}
-						</div>
-						</a>
-					</li>
+            {% if (announces|length) >= 1 %}
+              <div>
+                <ul class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                  {% for announce in announces %}
+                    <li class="announce col">
+                    <a href="/announce/{{ announce.id }}" class="card_link">
+                      <div
+                        class="card mb-3">
+                        {# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
+                        <figure class="figure">
+                          <img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure>
+                        <div class="price_container">
+                          <div class="price">{{announce.price}}<sup>€00</sup>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <h6 class="card-title">{{announce.title}}</h6>
+                        </div>
+                        {% if is_granted("EDIT", announce) %}
+                        <div class="card-footer">
+                          <a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                          </a>
+                          <a href="{# {{ path('app_removeannounce', { id: announce.id }) }} #}" class="btn_tools">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+                              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                          </a>
+                        </div>
+                        {% endif %}
+                      </div>
+                      </a>
+                    </li>
 
-				{% endfor %}
-			</ul>
-		</div>
-	{% else %}
-		<div class="alert_noresult">Il n'y a pas d'annonces ...
-			<a href="/addannounce" type="submit" class="add_link">Créez en une</a>
-		</div>
-	{% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+            {% else %}
+              <div class="alert_noresult">Il n'y a pas d'annonces ...
+                <a href="/addannounce" type="submit" class="add_link">Créez en une</a>
+              </div>
+            {% endif %}
 
           </div>
-          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
         </div>
       </div>
+
+      
     </div>
   </div>
 {% endblock %}
