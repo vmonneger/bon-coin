@@ -128,8 +128,19 @@
 
 #announce_form div {
   display: flex;
-  gap: 15px;
-  margin: 5px 0;
+  flex-direction: column;
+  gap: 5px;
+  margin: 15px 0;
+}
+
+#announce_form div label {
+  color: gray;
+}
+
+#announce_form div input {
+  border: 0.5px solid #e0e0e0;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .submit_announce {
@@ -425,4 +436,43 @@
 
 .profile-tab .nav-link:hover {
   color: #ff6e14;
+}
+
+
+/* //EDIT */
+
+.edit-announce figure {
+  height: 450px;
+  background-size: contain;
+}
+
+.edit-announce {
+  padding: 0 !important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* //ANNOUNCE */
+
+.announce-form-group {
+  display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.announce-form-group textarea {
+  width: 100%;
+}
+
+.announce-form-group h6 {
+  color: #ff6e14;
+}
+.announce-form-group .submit_announce {
+  align-self: flex-end;
 }

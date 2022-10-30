@@ -97,6 +97,7 @@
 			</div>
 		</div>
 	{% endif %}
+	<hr style="border: 1px solid #ff6e14 ;">
 	{% for question in questions %}
 		<p>{{ question.user.name }}</p>
 		<p>{{ question.question }}</p>
@@ -117,6 +118,9 @@
 
 	{% if is_granted("EDIT", announce) is same as(false) %}
 		<form action="{{ path('app_question', { announceId: announce.id }) }}" method="post">
+			<div class="announce-form-group">
+				<h6 for="question">Une question sur cet article ?</h6>
+				<textarea class="mb-3" type="textarea" id="question" name="question"></textarea>
 
 			<label for="question">Vous voulez poser une question ?</label>
 			<textarea type="textarea" id="question" name="question"></textarea>
