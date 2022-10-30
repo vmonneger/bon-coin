@@ -98,7 +98,8 @@ class AnnounceController extends AbstractController
             'announces' => $announce->getUserId()->getAnnounces(), 
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
-            'vote' => $vote
+            'vote' => $vote,
+            'questions' => $announce->getQuestions()->getValues(),
         ]);
     }
 
