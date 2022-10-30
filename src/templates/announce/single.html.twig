@@ -101,6 +101,18 @@
 		<p>{{ question.user.name }}</p>
 		<p>{{ question.question }}</p>
 		<p>{{ question.askedAt|date('d F Y') }}</p>
+		{% if question.response %}
+			<p>C'est la réponse: {{ question.response.message }}</p>
+		{% endif %}
+		{% if is_granted("EDIT", announce) and not question.response %}
+		<form action="{{ path('app_response', { announceId: announce.id, questionId: question.id }) }}" method="post">
+
+			<label for="question">Vous voulez répondre ?</label>
+			<textarea type="textarea" id="response" name="response"></textarea>
+
+			<input type="submit" value="Répondre">
+		</form>
+	{% endif %}
 	{% endfor %}
 
 	{% if is_granted("EDIT", announce) is same as(false) %}
@@ -109,7 +121,7 @@
 			<label for="question">Vous voulez poser une question ?</label>
 			<textarea type="textarea" id="question" name="question"></textarea>
 
-			<input type="submit" value="Modifier">
+			<input type="submit" value="Poster">
 		</form>
 	{% endif %}
 {% endblock %}

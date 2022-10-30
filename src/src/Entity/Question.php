@@ -28,6 +28,9 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\OneToOne(mappedBy: 'question', cascade: ['persist', 'remove'])]
+    private ?Response $response = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,23 @@ class Question
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getResponse(): ?Response
+    {
+        return $this->response;
+    }
+
+    public function setResponse(Response $response): self
+    {
+        // set the owning side of the relation if necessary
+        if ($response->getQuestion() !== $this) {
+            $response->setQuestion($this);
+        }
+
+        $this->response = $response;
 
         return $this;
     }
