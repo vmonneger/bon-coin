@@ -4,7 +4,6 @@
 	{% if (announces|length) >= 1 %}
 		<div>
 			Toutes mes annonces
-			{# {{userId}} #}
 
 			<ul class="row row-cols-1 row-cols-md-5 g-4 mt-3">
 				{% for announce in announces %}
@@ -12,9 +11,8 @@
 					<a href="/announce/{{ announce.id }}" class="card_link">
 						<div
 							class="card mb-3">
-							{# <figure style="backgroundImg: url('https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg')" class="card-img-top" alt="..."> #}
-							<figure class="figure">
-								<img src="https://images-prod.youzd.fr/article/3cf4761f-3af1-4af2-bba4-39c4478dbcec/f762ec3a-c795-457f-833d-23097c6e2a34.jpg" class="figure-img img-fluid rounded" alt="..."></figure>
+												<figure class="figure" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure>
+
 							<div class="price_container">
 								<div class="price">{{announce.price}}<sup>€00</sup>
 								</div>
