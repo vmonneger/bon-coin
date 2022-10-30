@@ -186,12 +186,15 @@
   white-space: nowrap;
 }
 .card-body {
-  padding: 0 15px !important;
+  padding: 0 15px 15px !important;
   background-color: white;
   z-index: 3000;
   position: relative;
   transform: translate(0px, -8px);
   padding-top: 10px !important;
+  border-radius: 0px 0px 15px 15px;
+  box-shadow: -5px -5px 9px -8px rgb(26 26 26 / 8%),
+    0 4px 8px 0 rgb(26 26 26 / 12%);
 }
 
 .figure {
@@ -253,7 +256,7 @@
 
 .card_profile .profile_redirection {
   text-decoration: none;
-  color: black; 
+  color: black;
 }
 
 .card_background_img {
@@ -348,7 +351,9 @@
   font-weight: 400;
   border-radius: 15px 0 0 0;
   font-size: 20px;
-  box-shadow: -5px -5px 9px -8px rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);}
+  box-shadow: -5px -5px 9px -8px rgb(26 26 26 / 8%),
+    0 4px 8px 0 rgb(26 26 26 / 12%);
+}
 
 .btn_vote {
   color: #ff6e14;
@@ -438,7 +443,6 @@
   color: #ff6e14;
 }
 
-
 /* //EDIT */
 
 .edit-announce figure {
@@ -458,16 +462,17 @@
 
 .announce-form-group {
   display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
-    align-items: flex-start;
-
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .announce-form-group textarea {
   width: 100%;
+  border-radius: 15px;
+  margin: 10px 0px;
 }
 
 .announce-form-group h6 {
@@ -475,4 +480,75 @@
 }
 .announce-form-group .submit_announce {
   align-self: flex-end;
+}
+
+.question_announce {
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  padding: 10px 15px;
+  margin: 10px 0px;
+}
+
+.question_announce .publish {
+  text-align: right;
+  color: #a5a5a5;
+}
+
+.question_announce p {
+  margin: 0;
+  margin-left: 10px;
+}
+
+.response_announce h6 {
+  color: #ff6e14;
+}
+
+.response_announce {
+  background-color: #ffebdf;
+  border-radius: 15px;
+  padding: 10px 15px;
+  margin: 10px 0px;
+}
+
+.response_announce p {
+  margin: 0;
+  margin-left: 10px;
+}
+
+.response {
+  margin-left: 15px !important;
+}
+/* .response .col-1 {
+  width: 25px;
+} */
+
+.response .svgreturn {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: flex-end;
+  align-items: center;
+  stroke: #ff6e14;
+}
+
+.respond_announce {
+  width: max-content !important;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  color: #ff6e14;
+  font-weight: 500;
+}
+
+.respond_announce:hover {
+  font-weight: bold;
+  background-color: transparent;
+  /* border: 1px solid #ff6e14; */
+}
+
+.collapse {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
