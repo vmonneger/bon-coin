@@ -240,6 +240,11 @@
   margin-top: -60px;
 }
 
+.card_profile .profile_redirection {
+  text-decoration: none;
+  color: black; 
+}
+
 .card_background_img {
   width: 100%;
   height: 180px;

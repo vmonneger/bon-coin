@@ -27,7 +27,8 @@
 
 
 				<div class="col-3">
-					<div class="card_profile mb-3">
+					<div class="card_profile mb-3" href="/profile/{{user.id}}">
+						<a class="profile_redirection"href="/profile/{{user.id}}">
 						<img class="card_background_img" src="https://source.unsplash.com/9wg5jCEPBsw" alt="background-img"/>
 						<img class="card_profile_img" alt="profile_img" src="https://source.unsplash.com/7Sz71zuuW4k"/>
 						<div class="user_details">
@@ -35,7 +36,7 @@
 							<p>Membre depuis le
 								{{user.created_at|date('d F Y')}}
 							</p>
-						</div>
+						</div></a>
 						<div class="card_count">
 							<div class="count">
 								<div class="notes">
