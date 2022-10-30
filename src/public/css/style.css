@@ -453,3 +453,26 @@
 .text-right {
   text-align: right;
 }
+
+/* //ANNOUNCE */
+
+.announce-form-group {
+  display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.announce-form-group textarea {
+  width: 100%;
+}
+
+.announce-form-group h6 {
+  color: #ff6e14;
+}
+.announce-form-group .submit_announce {
+  align-self: flex-end;
+}
