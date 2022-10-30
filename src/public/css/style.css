@@ -403,6 +403,6 @@
   color: black;
 }
 
-.profile-tab a:hover {
+.profile-tab .nav-link:hover {
   color: #ff6e14;
 }
