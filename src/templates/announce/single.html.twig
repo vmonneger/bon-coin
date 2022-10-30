@@ -97,4 +97,19 @@
 			</div>
 		</div>
 	{% endif %}
+	{% for question in questions %}
+		<p>{{ question.user.name }}</p>
+		<p>{{ question.question }}</p>
+		<p>{{ question.askedAt|date('d F Y') }}</p>
+	{% endfor %}
+
+	{% if is_granted("EDIT", announce) is same as(false) %}
+		<form action="{{ path('app_question', { announceId: announce.id }) }}" method="post">
+
+			<label for="question">Vous voulez poser une question ?</label>
+			<textarea type="textarea" id="question" name="question"></textarea>
+
+			<input type="submit" value="Modifier">
+		</form>
+	{% endif %}
 {% endblock %}
