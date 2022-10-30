@@ -176,6 +176,11 @@
 }
 .card-body {
   padding: 0 15px !important;
+  background-color: white;
+  z-index: 3000;
+  position: relative;
+  transform: translate(0px, -8px);
+  padding-top: 10px !important;
 }
 
 .figure {
@@ -185,6 +190,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: #efefef;
 }
 
 .figure .figure-img {
@@ -232,6 +238,11 @@
   border-radius: 120px;
   margin: 0 auto;
   margin-top: -60px;
+}
+
+.card_profile .profile_redirection {
+  text-decoration: none;
+  color: black; 
 }
 
 .card_background_img {
@@ -294,8 +305,9 @@
   height: 750px;
   width: 100%;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-color: #efefef;
 }
 
 .tools {
@@ -325,7 +337,7 @@
   font-weight: 400;
   border-radius: 15px 0 0 0;
   font-size: 20px;
-}
+  box-shadow: -5px -5px 9px -8px rgb(26 26 26 / 8%), 0 4px 8px 0 rgb(26 26 26 / 12%);}
 
 .btn_vote {
   color: #ff6e14;
@@ -344,9 +356,7 @@
 }
 .updown button:hover {
   fill: #ff6e14;
-
 }
-
 
 /* MENU  */
 

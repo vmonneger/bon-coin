@@ -8,21 +8,100 @@
     {{ parent() }}
     <script src="{{ asset('js/vote_profil.js') }}"></script>
 {% endblock %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Le nom: {{ name }}</h1>
-    <h2>Le mail: {{ email }}</h2>
-    <p>Upvote: {{ upvote }}</p>
-    <p>Downvote: {{ downvote }}</p>
+  <div>
+    <div class="row g-4 mt-3">
+      <div class="col-3">
+        <div class="card_profile mb-3">
+          <img class="card_background_img" src="https://source.unsplash.com/9wg5jCEPBsw" alt="background-img" />
+          <img class="card_profile_img" alt="profile_img" src="https://source.unsplash.com/7Sz71zuuW4k" />
+          <div class="user_details">
+            <h3>{{ name }}</h3>
+            <p>Membre depuis le
+              {{ created_at|date('d F Y') }}</p>
+          </div>
+          <div class="card_count">
+            <div class="count">
+              <div class="notes">
+                <h3>{{ (vote.upvoteTotal) + (vote.downvoteTotal) }}</h3>
+                <p>Note{{ ((vote.upvoteTotal) + (vote.downvoteTotal)) > 1 ? "s" :""}}</p>
+              </div>
+              <hr>
+              <div class="post">
+                <h3>{{ announces|length }}</h3>
+                <p>Annonce{{ announces|length > 1 ? "s" : "" }}</p>
+              </div>
+            </div>
+            <div class="btn_vote">Votes</div>
+            <div class="updown">
+             <button class="js-vote" data-direction="up" data-user="{{ id }}" name="vote" value="up" style="{{ vote.getAlreadyUpvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
+									{{ source('@public_path'~asset('svg/thumbsup.svg')) }}
 
-    {# <form action="{{ path('app_vote', { sellerId: app.request.get('userID') }) }}" method="post"> #}
-        <button {{ upvoteDisabled }} class="js-vote-up" data-direction="up" name="vote" value="up">vote up</button>
-        <button {{ downvoteDisabled }} class="js-vote-down" data-direction="down" name="vote" value="down">vote down</button>
-        <span class="js-vote-total">6</span>
-    {# </form> #}
-</div>
+									<p class="js-vote-up">{{ vote.upvoteTotal }}</p>
+								</button>
+								<button class="js-vote" data-direction="down" data-user="{{ id }}" name="vote" value="down" style="{{ vote.getAlreadyDownvote(app.user.id) ? 'fill: #ff6e14' : '' }}">
+									{{ source('@public_path'~asset('svg/thumbsdown.svg')) }}
+
+									<p class="js-vote-down">{{ vote.downvoteTotal }}</p>
+								</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <div class="col-9 profile-tab">
+        <h6>Annonces</h6>
+        <hr style="border: 1px solid black"/>
+          
+            {% if (announces|length) >= 1 %}
+              <div>
+                <ul class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                  {% for announce in announces %}
+                    <li class="announce col">
+                    <a href="/announce/{{ announce.id }}" class="card_link">
+                      <div
+                        class="card mb-3">
+                        <figure class="figure" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure>
+                        <div class="price_container">
+                          <div class="price">{{announce.price}}<sup>€00</sup>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <h6 class="card-title">{{announce.title}}</h6>
+                        </div>
+                        {% if is_granted("EDIT", announce) %}
+                        <div class="card-footer">
+                          <a href="{{ path('app_removeannounce', { id: announce.id }) }}" class="btn_tools">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+                              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                            </svg>
+                          </a>
+                          <a href="{# {{ path('app_removeannounce', { id: announce.id }) }} #}" class="btn_tools">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+                              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                          </a>
+                        </div>
+                        {% endif %}
+                      </div>
+                      </a>
+                    </li>
+
+                  {% endfor %}
+                </ul>
+              </div>
+            {% else %}
+              <div class="alert_noresult">Il n'y a pas d'annonces ...
+                <a href="/addannounce" type="submit" class="add_link">Créez en une</a>
+              </div>
+            {% endif %}
+
+      </div>
+
+      
+    </div>
+  </div>
 {% endblock %}

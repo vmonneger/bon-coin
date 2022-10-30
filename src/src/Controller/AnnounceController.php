@@ -68,12 +68,10 @@ class AnnounceController extends AbstractController
     #[Route('/allannounce', name: 'app_announce')]
     public function allAnnounces(EntityManagerInterface $entityManager): Response
     {
-        // $loggedUser = $this->getUser()->getId();
         $repository = $entityManager->getRepository(Announces::class);
         $announces = $repository->findBy([], ['created_at' => 'ASC']);
         return $this->render('announce/all.html.twig', [
             'announces' => $announces,
-            // 'userId' => $loggedUser
         ]);
     }
 
@@ -89,15 +87,10 @@ class AnnounceController extends AbstractController
     #[Route('/announce/{id}', name: 'app_announcebyid')]
     public function getAnnounceById(int $id, EntityManagerInterface $entityManager): Response
     {
-        // $loggedUser = $this->getUser()->getId();
-        // $announce = $entityManager->getReference(Announces::class, $id);
-        $userID = $this->getUser()->getId();
-        
         $repository = $entityManager->getRepository(Announces::class);
         $announce = $repository->find($id);
         $vote = $entityManager->getRepository(Vote::class)->FindOneBy(array('seller_id' => $announce->getUserId()));
 
-        // $vote->getAlreadyDownvote($this->getUser()->getId())
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
             'sellerId' => $announce->getUserId()->getId(),
@@ -115,10 +108,6 @@ class AnnounceController extends AbstractController
         $announce = $doctrine->getRepository(Announces::class)->find($id);
         $form = $this->createForm(AnnounceFormType::class, $announce);
         $form->handleRequest($request);
-        // $tags = [];
-        // foreach ($announce->getTags() as $tag) {
-        //     $tags[] = $tag->getId();
-        // }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $myAnnounce = $form->getData();
@@ -151,8 +140,6 @@ class AnnounceController extends AbstractController
 
     #[Route('/updateannounce/{id}', name: 'app_updateannounce')]
     public function update(int $id, EntityManagerInterface $entityManager, Request $request){
-
-     
 
         $tags = $request->request->all('tags');
 
