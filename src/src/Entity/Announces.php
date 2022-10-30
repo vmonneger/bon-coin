@@ -41,10 +41,14 @@ class Announces
     #[ORM\OneToMany(mappedBy: 'announce', targetEntity: Question::class, orphanRemoval: true)]
     private Collection $questions;
 
+    #[ORM\OneToMany(mappedBy: 'announce', targetEntity: Response::class, orphanRemoval: true)]
+    private Collection $responses;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->questions = new ArrayCollection();
+        $this->responses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,6 +176,36 @@ class Announces
             // set the owning side to null (unless already changed)
             if ($question->getAnnounce() === $this) {
                 $question->setAnnounce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Response>
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Response $response): self
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses->add($response);
+            $response->setAnnounce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Response $response): self
+    {
+        if ($this->responses->removeElement($response)) {
+            // set the owning side to null (unless already changed)
+            if ($response->getAnnounce() === $this) {
+                $response->setAnnounce(null);
             }
         }
 
