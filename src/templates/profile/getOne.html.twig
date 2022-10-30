@@ -23,8 +23,8 @@
           <div class="card_count">
             <div class="count">
               <div class="notes">
-                <h3>{{ (upvote|length) + (downvote|length) }}</h3>
-                <p>Note{{ ((upvote|length) + (downvote|length)) > 1 ? "s" :""}}</p>
+                <h3>{{ (vote.upvoteTotal) + (vote.downvoteTotal) }}</h3>
+                <p>Note{{ ((vote.upvoteTotal) + (vote.downvoteTotal)) > 1 ? "s" :""}}</p>
               </div>
               <hr>
               <div class="post">
