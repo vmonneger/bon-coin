@@ -154,8 +154,8 @@
 				<div class="col-3">
 					<div class="card_profile mb-3" href="/profile/{{user.id}}">
 						<a class="profile_redirection"href="/profile/{{user.id}}">
-						<img class="card_background_img" src="https://source.unsplash.com/9wg5jCEPBsw" alt="background-img"/>
-						<img class="card_profile_img" alt="profile_img" src="https://source.unsplash.com/7Sz71zuuW4k"/>
+						<img class="card_background_img" src={{user.backgroundpicture ? ['/uploads/', user.backgroundpicture]|join : "https://source.unsplash.com/9wg5jCEPBsw"}} alt="background-img"/>
+						<img class="card_profile_img" alt="profile_img" src="{{user.profilepicture ? ['/uploads/', user.profilepicture]|join : "https://tse3.mm.bing.net/th?id=OIP.jbQE4dHJv2Ey7JTw-lSN5gHaHa&pid=Api"}}"/>
 						<div class="user_details">
 							<h3>{{user.name}}</h3>
 							<p>Membre depuis le
