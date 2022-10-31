@@ -23,7 +23,7 @@
         </div>
         <div>
           <a class="profile" href="/profile">
-            <figure class="profile_pastille" style="background-image: url('https://source.unsplash.com/7Sz71zuuW4k');">
+            <figure class="profile_pastille" style="background-image: url({{app.user.profilepicture ? ['/uploads/', app.user.profilepicture]|join : "https://tse3.mm.bing.net/th?id=OIP.jbQE4dHJv2Ey7JTw-lSN5gHaHa&pid=Api"}});">
               <div class="online"></div>
             </figure>
             <small>{{ app.user.name }}</small>
