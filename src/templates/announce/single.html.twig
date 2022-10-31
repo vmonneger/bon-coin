@@ -10,7 +10,55 @@
 		<div>
 			<div class="row g-4 mt-3">
 				<div class="single_announce col-9">
-					<figure class="figure" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure>
+					<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
+						<div class="carousel-indicators">
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							{% if announce.Image2 %}
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+							{% endif %}
+							{% if announce.Image3 %}
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+							{% endif %}
+							{% if announce.Image4 %}
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+							{% endif %}
+						</div>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<figure class="figure d-block w-100" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure>
+
+							</div>
+							{% if announce.Image2 %}
+							<div class="carousel-item">
+								<figure class="figure d-block w-100" style="background-image: url('/uploads/{{announce.Image2}}')"></figure>
+							</div>
+							{% endif %}
+							{% if announce.Image3 %}
+							<div class="carousel-item">
+								<figure class="figure d-block w-100" style="background-image: url('/uploads/{{announce.Image3}}')"></figure>
+							</div>
+							{% endif %}
+							{% if announce.Image4 %}
+							<div class="carousel-item">
+								<figure class="figure d-block w-100" style="background-image: url('/uploads/{{announce.Image4}}')"></figure>
+							</div>
+							{% endif %}
+						</div>
+						{% if announce.Image2 or announce.Image3 or announce.Image4  %}
+
+							<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+								{{ source('@public_path'~asset('svg/chevronleft.svg')) }}
+								<span class="visually-hidden">Previous</span>
+							</button>
+							<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+								{{ source('@public_path'~asset('svg/chevronright.svg')) }}
+								<span class="visually-hidden">Next</span>
+							</button>
+						{% endif %}
+					</div>
+
+					{# <figure class="figure" style="background-image: url('{{ announce.Image ? ['/uploads/', announce.Image]|join:'https://pbs.twimg.com/media/D8wZV7eXUAEdSRF.jpg' }}')"></figure> #}
 					<div class="price_container">
 						<div class="price">{{announce.price}}<sup>€00</sup>
 						</div>
