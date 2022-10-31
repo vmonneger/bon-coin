@@ -50,6 +50,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Question::class)]
     private Collection $questions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profilepicture = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $backgroundpicture = null;
+
     public function __construct()
     {
         $this->tests = new ArrayCollection();
@@ -249,6 +255,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $question->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfilepicture(): ?string
+    {
+        return $this->profilepicture;
+    }
+
+    public function setProfilepicture(?string $profilepicture): self
+    {
+        $this->profilepicture = $profilepicture;
+
+        return $this;
+    }
+
+    public function getBackgroundpicture(): ?string
+    {
+        return $this->backgroundpicture;
+    }
+
+    public function setBackgroundpicture(?string $backgroundpicture): self
+    {
+        $this->backgroundpicture = $backgroundpicture;
 
         return $this;
     }

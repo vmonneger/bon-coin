@@ -41,10 +41,10 @@ class AnnounceController extends AbstractController
             $myAnnounce = $form->getData();
             $myAnnounce->setCreated_At();
             $myAnnounce->setUserId($idUser);
-            
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/';
 
-              //FILE1
+            $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/';
+
+            //FILE1
             $file = $form['Image']->getData();
             $originalFileName = $file->getClientOriginalName();
             $baseFileName = pathinfo($originalFileName, PATHINFO_FILENAME);
@@ -60,21 +60,21 @@ class AnnounceController extends AbstractController
             $file2->move($destination, $fileName2);
             $myAnnounce->setImage2($fileName2);
 
-             //FILE3
-             $file3 = $form['Image_3']->getData();
-             $originalFileName3 = $file3->getClientOriginalName();
-             $baseFileName3 = pathinfo($originalFileName3, PATHINFO_FILENAME);
-             $fileName3 = $baseFileName3 . '-' . uniqId() . '-' . $file3->getClientOriginalName();
-             $file3->move($destination, $fileName3);
-             $myAnnounce->setImage3($fileName3);
+            //FILE3
+            $file3 = $form['Image_3']->getData();
+            $originalFileName3 = $file3->getClientOriginalName();
+            $baseFileName3 = pathinfo($originalFileName3, PATHINFO_FILENAME);
+            $fileName3 = $baseFileName3 . '-' . uniqId() . '-' . $file3->getClientOriginalName();
+            $file3->move($destination, $fileName3);
+            $myAnnounce->setImage3($fileName3);
 
-             //FILE4
-             $file4 = $form['Image_4']->getData();
-             $originalFileName4 = $file4->getClientOriginalName();
-             $baseFileName4 = pathinfo($originalFileName4, PATHINFO_FILENAME);
-             $fileName4 = $baseFileName4 . '-' . uniqId() . '-' . $file4->getClientOriginalName();
-             $file4->move($destination, $fileName4);
-             $myAnnounce->setImage4($fileName4);
+            //FILE4
+            $file4 = $form['Image_4']->getData();
+            $originalFileName4 = $file4->getClientOriginalName();
+            $baseFileName4 = pathinfo($originalFileName4, PATHINFO_FILENAME);
+            $fileName4 = $baseFileName4 . '-' . uniqId() . '-' . $file4->getClientOriginalName();
+            $file4->move($destination, $fileName4);
+            $myAnnounce->setImage4($fileName4);
 
             $entityManager->persist($myAnnounce);
             $entityManager->flush();
@@ -99,7 +99,8 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/removeannounce/{id}', name: 'app_removeannounce')]
-    public function remove(int $id, EntityManagerInterface $entityManager){
+    public function remove(int $id, EntityManagerInterface $entityManager)
+    {
         $announce = $entityManager->getReference(Announces::class, $id);
         $entityManager->remove($announce);
         $entityManager->flush();
@@ -117,8 +118,8 @@ class AnnounceController extends AbstractController
         return $this->render('announce/single.html.twig', [
             'announce' => $announce,
             'sellerId' => $announce->getUserId()->getId(),
-            'user' => $announce->getUserId(), 
-            'announces' => $announce->getUserId()->getAnnounces(), 
+            'user' => $announce->getUserId(),
+            'announces' => $announce->getUserId()->getAnnounces(),
             'downvote' => $vote ? $vote->getDownvote() : 0,
             'upvote' => $vote ? $vote->getUpvote() : 0,
             'vote' => $vote,
@@ -127,7 +128,8 @@ class AnnounceController extends AbstractController
     }
 
     #[Route('/getannounce/{id}', name: 'app_getannounce')]
-    public function get(ManagerRegistry $doctrine, int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo, Request $request){
+    public function get(ManagerRegistry $doctrine, int $id, EntityManagerInterface $entityManager, AnnouncesRepository $repo, Request $request)
+    {
 
         $announce = $doctrine->getRepository(Announces::class)->find($id);
         $form = $this->createForm(AnnounceFormType::class, $announce);
@@ -139,39 +141,55 @@ class AnnounceController extends AbstractController
             $announce->setDescription($myAnnounce->getDescription());
             $announce->setPrice($myAnnounce->getPrice());
 
-            $destination = $this->getParameter('kernel.project_dir').'/public/uploads/';
-            
+            $destination = $this->getParameter('kernel.project_dir') . '/public/uploads/';
+
             //FILE1
             $file = $form['Image']->getData();
-            $originalFileName = $file->getClientOriginalName();
-            $baseFileName = pathinfo($originalFileName, PATHINFO_FILENAME);
-            $fileName = $baseFileName . '-' . uniqId() . '-' . $file->getClientOriginalName();
-            $file->move($destination, $fileName);
-            $announce->setImage($fileName);
+            if ($file !== null) {
+                $originalFileName = $file->getClientOriginalName();
+                $baseFileName = pathinfo($originalFileName, PATHINFO_FILENAME);
+                $fileName = $baseFileName . '-' . uniqId() . '-' . $file->getClientOriginalName();
+                $file->move($destination, $fileName);
+                $announce->setImage($fileName);
+            } else {
+                $announce->setImage($announce->getImage());
+            }
 
             //FILE2
             $file2 = $form['Image_2']->getData();
-            $originalFileName2 = $file2->getClientOriginalName();
-            $baseFileName2 = pathinfo($originalFileName2, PATHINFO_FILENAME);
-            $fileName2 = $baseFileName2 . '-' . uniqId() . '-' . $file2->getClientOriginalName();
-            $file2->move($destination, $fileName2);
-            $announce->setImage2($fileName2);
+            if ($file2 !== null) {
+                $originalFileName2 = $file2->getClientOriginalName();
+                $baseFileName2 = pathinfo($originalFileName2, PATHINFO_FILENAME);
+                $fileName2 = $baseFileName2 . '-' . uniqId() . '-' . $file2->getClientOriginalName();
+                $file2->move($destination, $fileName2);
+                $announce->setImage2($fileName2);
+            } else {
+                $announce->setImage2($announce->getImage2());
+            }
 
-             //FILE3
-             $file3 = $form['Image_3']->getData();
-             $originalFileName3 = $file3->getClientOriginalName();
-             $baseFileName3 = pathinfo($originalFileName3, PATHINFO_FILENAME);
-             $fileName3 = $baseFileName3 . '-' . uniqId() . '-' . $file3->getClientOriginalName();
-             $file3->move($destination, $fileName3);
-             $announce->setImage3($fileName3);
+            //FILE3
+            $file3 = $form['Image_3']->getData();
+            if ($file3 !== null) {
+                $originalFileName3 = $file3->getClientOriginalName();
+                $baseFileName3 = pathinfo($originalFileName3, PATHINFO_FILENAME);
+                $fileName3 = $baseFileName3 . '-' . uniqId() . '-' . $file3->getClientOriginalName();
+                $file3->move($destination, $fileName3);
+                $announce->setImage3($fileName3);
+            } else {
+                $announce->setImage3($announce->getImage3());
+            }
 
-             //FILE4
-             $file4 = $form['Image_4']->getData();
-             $originalFileName4 = $file4->getClientOriginalName();
-             $baseFileName4 = pathinfo($originalFileName4, PATHINFO_FILENAME);
-             $fileName4 = $baseFileName4 . '-' . uniqId() . '-' . $file4->getClientOriginalName();
-             $file4->move($destination, $fileName4);
-             $announce->setImage4($fileName4);
+            //FILE4
+            $file4 = $form['Image_4']->getData();
+            if ($file4 !== null) {
+                $originalFileName4 = $file4->getClientOriginalName();
+                $baseFileName4 = pathinfo($originalFileName4, PATHINFO_FILENAME);
+                $fileName4 = $baseFileName4 . '-' . uniqId() . '-' . $file4->getClientOriginalName();
+                $file4->move($destination, $fileName4);
+                $announce->setImage4($fileName4);
+            } else {
+                $announce->setImage4($announce->getImage4()); 
+            }
 
             $entityManager->persist($announce);
             $entityManager->flush();
@@ -180,20 +198,21 @@ class AnnounceController extends AbstractController
         }
         return $this->render('announce/edit.html.twig', [
             'announceForm' => $form->createView(),
-            'announce' => $announce, 
+            'announce' => $announce,
         ]);
     }
 
-    #[Route('/myannounces', name:"app_getmyannounces")]
+    #[Route('/myannounces', name: "app_getmyannounces")]
 
-    public function getmyannounces(EntityManagerInterface $entityManager, Request $request) {
+    public function getmyannounces(EntityManagerInterface $entityManager, Request $request)
+    {
         $userID = $this->getUser()->getId();
 
         $user = $entityManager->getRepository(User::class)->find($userID);
 
         return $this->render('announce/myannounces.html.twig', [
-            'user' => $user, 
-            'announces' => $user->getAnnounces(), 
+            'user' => $user,
+            'announces' => $user->getAnnounces(),
         ]);
     }
 }
