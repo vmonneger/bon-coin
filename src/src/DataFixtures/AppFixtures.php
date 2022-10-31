@@ -6,9 +6,17 @@ use App\Entity\Tags;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $firstTag = new Tags();
@@ -16,10 +24,11 @@ class AppFixtures extends Fixture
         $trdTag = new Tags();
 
         $user = new User();
+        $password = $this->hasher->hashPassword($user, 'admin!');
 
         $user->setEmail('admin@admin.com')
             ->setName('admin')
-            ->setPassword('admin!')
+            ->setPassword($password)
             ->setRoles(array('ROLE_ADMIN'))
             ->setCreated_At(new \DateTimeImmutable('now'));
 
