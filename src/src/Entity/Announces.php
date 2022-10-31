@@ -44,6 +44,15 @@ class Announces
     #[ORM\OneToMany(mappedBy: 'announce', targetEntity: Response::class, orphanRemoval: true)]
     private Collection $responses;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image_2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image_3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image_4 = null;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -208,6 +217,42 @@ class Announces
                 $response->setAnnounce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage2(): ?string
+    {
+        return $this->image_2;
+    }
+
+    public function setImage2(?string $image_2): self
+    {
+        $this->image_2 = $image_2;
+
+        return $this;
+    }
+
+    public function getImage3(): ?string
+    {
+        return $this->image_3;
+    }
+
+    public function setImage3(?string $image_3): self
+    {
+        $this->image_3 = $image_3;
+
+        return $this;
+    }
+
+    public function getImage4(): ?string
+    {
+        return $this->image_4;
+    }
+
+    public function setImage4(?string $image_4): self
+    {
+        $this->image_4 = $image_4;
 
         return $this;
     }
