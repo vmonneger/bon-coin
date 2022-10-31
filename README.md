@@ -1,7 +1,7 @@
 # Php-fpm-alpine x Nginx
 ### Symfony | Docker
 
-Load la fixture pour créer un compte admin.
+Load la fixture pour créer un compte admin (email: admin@admin.com, mdp: admin!).
 Un dump de la db dans Versions.
 
 Avec MariaDB & MailDev
