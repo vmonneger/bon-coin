@@ -72,6 +72,8 @@ class ProfileController extends AbstractController
             'id' => $user->getId(),
             'email' => $user->getEmail(),
             'name' => $user->getName(),
+            'pp' => $user->getProfilepicture(), 
+            'bgp' => $user->getBackgroundpicture(), 
             'created_at' => $user->getCreated_At(),
             'downvote' => count($vote->getDownvote()),
             'upvote' => count($vote->getUpvote()),
